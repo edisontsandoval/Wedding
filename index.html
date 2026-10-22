@@ -185,7 +185,8 @@ fieldset{border:0;margin:0;padding:0;display:grid;gap:.6rem}
 .err{color:#B4483A;font-size:.85rem;min-height:1.2em}
 :root[data-theme="dark"] .err{color:#F09080}
 .thanks{text-align:center;display:grid;gap:1rem;justify-items:center;padding-block:2rem}
-.thanks .thanks-title{font:italic 400 2.4rem/1 var(--display);color:var(--rose)}
+/* Words sit in the open middle of the wreath, which is up and right of the image centre */
+.thanks .thanks-title{position:absolute;left:56%;top:43%;transform:translate(-50%,-50%);margin:0;text-align:center;font:italic 400 15cqw/.92 var(--display);color:var(--rose);letter-spacing:-.01em}
 .preview-note{font-size:.8rem;color:var(--muted);text-align:center;border-top:1px dashed var(--line);padding-top:1rem}
 
 /* FAQ */
@@ -213,7 +214,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 .rsvp-shell::before{top:-24px;left:-24px}
 .rsvp-shell::after{bottom:-24px;right:-24px;transform:rotate(180deg)}
 .rsvp{z-index:2}
-.wreath{width:min(260px,70vw);aspect-ratio:1;display:grid;place-items:center;background:url(img/wreath.webp) center/contain no-repeat}
+.wreath{width:min(340px,100%);aspect-ratio:800/764;position:relative;container-type:inline-size;background:url(img/wreath.webp) center/contain no-repeat}
 
 /* ---------- Motion ---------- */
 .js .reveal{opacity:.5;transform:translateY(24px);transition:opacity .9s ease var(--d,0s),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
@@ -630,7 +631,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
             <p class="preview-note" id="previewNote">Draft preview. Replies sent from this page aren't saved yet. They will be once the site goes live.</p>
           </form>
           <div class="thanks" id="thanks" hidden>
-            <div class="wreath"><p class="thanks-title">Thank you</p></div>
+            <div class="wreath"><p class="thanks-title">Thank<br>you</p></div>
             <h3 id="thanksHead" style="font-size:1.6rem"></h3>
             <p id="thanksBody" style="color:var(--muted);max-width:44ch"></p>
             <button class="btn ghost" type="button" id="again">Edit my reply</button>
