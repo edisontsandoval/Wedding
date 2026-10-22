@@ -15,9 +15,11 @@
 /* Layout: an invitation suite. Each page is one card from the stationery set, framed in a gold hairline on blush paper, with moss-green ink. */
 :root{
   --paper:#FAF4EE; --card:#FFFCF8; --ink:#2C3424; --muted:#6B675A;
-  --gold:#A87C27; --honey:#E5B23A; --rose:#BE8072; --peony:#F0CEC8; --sage:#7F8C6B;
+  --gold:#8A6418; --honey:#E5B23A; --rose:#BE8072; --peony:#F0CEC8; --sage:#7F8C6B;
   --line:rgba(168,124,39,.38); --shade:rgba(44,52,36,.08); --veil:rgba(28,24,16,.42);
   --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  /* Type roles. Display (Bodoni Moda): names and headings. Body (Jost): reading text, labels, buttons.
+     Script (Pinyon Script): ornament only, the M & E monogram and single ampersands. Never for words. */
   --script:"Pinyon Script", "Snell Roundhand", cursive;
   --body:"Jost", "Futura", "Avenir Next", system-ui, sans-serif;
   --florals-blend:normal; --florals-op:1;
@@ -183,7 +185,7 @@ fieldset{border:0;margin:0;padding:0;display:grid;gap:.6rem}
 .err{color:#B4483A;font-size:.85rem;min-height:1.2em}
 :root[data-theme="dark"] .err{color:#F09080}
 .thanks{text-align:center;display:grid;gap:1rem;justify-items:center;padding-block:2rem}
-.thanks .script{font-size:3.4rem;line-height:1}
+.thanks .thanks-title{font:italic 400 2.4rem/1 var(--display);color:var(--rose)}
 .preview-note{font-size:.8rem;color:var(--muted);text-align:center;border-top:1px dashed var(--line);padding-top:1rem}
 
 /* FAQ */
@@ -195,7 +197,8 @@ fieldset{border:0;margin:0;padding:0;display:grid;gap:.6rem}
 .faq details p{margin-top:.7rem;color:var(--muted);max-width:62ch}
 
 footer{border-top:1px solid var(--line);padding-block:3rem;text-align:center}
-footer .script{font-size:2.6rem;color:var(--gold)}
+footer .names{font:italic 400 clamp(1.9rem,4.5vw,2.6rem)/1.2 var(--display);color:var(--ink);letter-spacing:-.005em;margin-bottom:.5rem}
+footer .names .amp{font-family:var(--script);font-style:normal;color:var(--gold);padding:0 .1em}
 footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 
 /* ---------- Floral accents (Higgsfield watercolours) ---------- */
@@ -628,7 +631,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
             <p class="preview-note" id="previewNote">Draft preview. Replies sent from this page aren't saved yet. They will be once the site goes live.</p>
           </form>
           <div class="thanks" id="thanks" hidden>
-            <div class="wreath"><p class="script">Thank you</p></div>
+            <div class="wreath"><p class="thanks-title">Thank you</p></div>
             <h3 id="thanksHead" style="font-size:1.6rem"></h3>
             <p id="thanksBody" style="color:var(--muted);max-width:44ch"></p>
             <button class="btn ghost" type="button" id="again">Edit my reply</button>
@@ -642,7 +645,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 
 <footer>
   <div class="wrap">
-    <p class="script">Mary Lisa &amp; Edison</p>
+    <p class="names">Mary Lisa <span class="amp">&amp;</span> Edison</p>
     <p>August 9, 2027 · Carleton Place, Ontario</p>
   </div>
 </footer>
