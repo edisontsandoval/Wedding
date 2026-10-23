@@ -75,7 +75,7 @@ nav a.cta{color:var(--gold)}
 
 /* Hero */
 .hero{position:relative;overflow:hidden;background:#3a2f1c linear-gradient(165deg,#4a3a22 0%,#8c5f33 38%,#d39a5a 62%,#e9bf86 78%,#7d6a3e 100%);min-height:min(78vh,720px);display:grid;align-items:end}
-.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero video,.hero .poster,.hero .hero-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,13,6,0) 0%,rgba(18,13,6,.08) 30%,rgba(18,13,6,.55) 58%,rgba(18,13,6,.86) 100%),linear-gradient(90deg,rgba(18,13,6,.38) 0%,rgba(18,13,6,0) 65%)}
 .hero .wrap{position:relative;z-index:2;width:100%;padding-block:3.5rem 3rem;color:#FFF8EE;text-shadow:0 1px 2px rgba(0,0,0,.35),0 2px 18px rgba(0,0,0,.35)}
 .hero .eyebrow{color:#F8E2A6}
@@ -223,7 +223,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 .js .reveal{opacity:.5;transform:translateY(24px);transition:opacity .9s ease var(--d,0s),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
 .js .reveal.in{opacity:1;transform:none}
 
-.hero .poster,.hero video{animation:drift 18s ease-out both;will-change:transform}
+.hero .poster,.hero .hero-still,.hero video{animation:drift 18s ease-out both;will-change:transform}
 @keyframes drift{from{transform:scale(1.09)}to{transform:scale(1)}}
 .hero .wrap > *{animation:lift 1.1s cubic-bezier(.2,.7,.2,1) both}
 .hero .wrap > :nth-child(2){animation-delay:.15s}
@@ -278,7 +278,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 
 @media (prefers-reduced-motion:reduce){
   .js .reveal{opacity:1;transform:none;transition:none}
-  .hero .poster,.hero video,.hero .wrap > *{animation:none}
+  .hero .poster,.hero .hero-still,.hero video,.hero .wrap > *{animation:none}
   .timeline::before{transform:none}
   *{transition-duration:0s!important}
 }
@@ -379,6 +379,10 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   animation:grain .9s steps(5) infinite}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-14px,8px)}40%{transform:translate(10px,-12px)}60%{transform:translate(-8px,-6px)}80%{transform:translate(12px,10px)}100%{transform:translate(0,0)}}
 @media (prefers-reduced-motion:reduce){.hero-grain{animation:none}}
+
+/* Opening still: the montage's own first frame, chosen by screen shape so nothing else flashes first */
+.hero .hero-still{background:url(img/hero-poster.jpg) center/cover no-repeat}
+@media (max-aspect-ratio:2/3){.hero .hero-still{background-image:url(img/hero-poster-portrait.jpg)}}
 </style>
 </head>
 <body>
@@ -404,8 +408,8 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 <!-- HOME -->
 <section class="view" id="v-home" data-view="home">
   <div class="hero">
-    <img class="poster" onerror="this.remove()" src="img/hero.jpg" alt="A meadow of yellow and pink wildflowers in front of a stone farmhouse at sunset">
-    <video id="montage" class="hero-video" autoplay muted loop playsinline preload="auto" poster="img/hero-poster.jpg" aria-hidden="true">
+    <span class="hero-still" aria-hidden="true"></span>
+    <video id="montage" class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
       <source src="video/hero-portrait.mp4" type="video/mp4" media="(max-aspect-ratio: 2/3)">
       <source src="video/hero-landscape.mp4" type="video/mp4">
     </video>
@@ -818,7 +822,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   });
 
   // Hero parallax and timeline line progress
-  var tl=document.querySelector(".timeline"), poster=document.querySelector(".hero .poster"), heroVid=document.getElementById("montage"), ticking=false;
+  var tl=document.querySelector(".timeline"), poster=document.querySelector(".hero .hero-still"), heroVid=document.getElementById("montage"), ticking=false;
   var still=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   function onScroll(){
     ticking=false; if(still) return;
@@ -943,9 +947,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   (function(){ var v=document.getElementById("montage"); if(!v) return;
     // Phones (tall, narrow screens) get the vertical cut; everything else the landscape one
     var tall=window.matchMedia&&matchMedia("(max-aspect-ratio: 2/3)");
-    function pick(){ v.poster=tall&&tall.matches?"img/hero-poster-portrait.jpg":"img/hero-poster.jpg" }
-    pick();
-    if(tall&&tall.addEventListener) tall.addEventListener("change",function(){ pick(); v.load(); if(!still){ var r=v.play(); if(r&&r.catch) r.catch(function(){}) } });
+    if(tall&&tall.addEventListener) tall.addEventListener("change",function(){ v.load(); if(!still){ var r=v.play(); if(r&&r.catch) r.catch(function(){}) } });
     if(still){ v.removeAttribute("autoplay"); try{ v.pause() }catch(e){} }
     else { var p=v.play&&v.play(); if(p&&p.catch) p.catch(function(){}) }
     if(!still) document.addEventListener("visibilitychange",function(){ if(document.visibilityState==="visible"&&v.paused){ var q=v.play(); if(q&&q.catch) q.catch(function(){}) } });
