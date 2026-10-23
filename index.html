@@ -212,9 +212,10 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 .has-corner::before{content:"";position:absolute;top:-30px;right:-40px;width:min(360px,48vw);aspect-ratio:1;background:url(img/corner.webp) top right/contain no-repeat;transform:scaleX(-1);opacity:.9;pointer-events:none}
 .has-corner > .wrap{position:relative}
 .rsvp-shell{position:relative}
-.rsvp-shell::before,.rsvp-shell::after{content:"";position:absolute;width:min(260px,38vw);aspect-ratio:1;background:url(img/corner.webp) top left/contain no-repeat;pointer-events:none;z-index:1}
-.rsvp-shell::before{top:-24px;left:-24px}
-.rsvp-shell::after{bottom:-24px;right:-24px;transform:rotate(180deg)}
+.rsvp-shell::before,.rsvp-shell::after{content:"";position:absolute;width:min(300px,30vw);aspect-ratio:860/900;background:url(img/corner-rsvp.webp) top left/contain no-repeat;pointer-events:none;z-index:1}
+.rsvp-shell::before{top:-42px;left:-34px}
+.rsvp-shell::after{bottom:-42px;right:-34px;transform:rotate(180deg)}
+@media (max-width:600px){.rsvp-shell{margin-top:4.2rem;margin-bottom:3.4rem}.rsvp-shell::before,.rsvp-shell::after{width:42vw}.rsvp-shell::before{top:-58px;left:-8px}.rsvp-shell::after{bottom:-58px;right:-8px}}
 .rsvp{z-index:2}
 .wreath{width:min(340px,100%);aspect-ratio:900/872;position:relative;container-type:inline-size;background:url(img/wreath.webp) center/contain no-repeat}
 
