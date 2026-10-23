@@ -942,6 +942,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   (function(){ var v=document.getElementById("montage"); if(!v) return;
     if(still){ v.removeAttribute("autoplay"); try{ v.pause() }catch(e){} }
     else { var p=v.play&&v.play(); if(p&&p.catch) p.catch(function(){}) }
+    if(!still) document.addEventListener("visibilitychange",function(){ if(document.visibilityState==="visible"&&v.paused){ var q=v.play(); if(q&&q.catch) q.catch(function(){}) } });
   })();
 
   // Countdown to 4:00 pm Eastern, Aug 9 2027
