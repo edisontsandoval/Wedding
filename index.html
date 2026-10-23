@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="Mary Lisa and Edison are getting married on August 9, 2027 at Stonefields Estate. Details and RSVP.">
+<meta name="theme-color" content="#FAF4EE">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://edisontsandoval.github.io/Wedding/">
+<meta property="og:title" content="Mary Lisa &amp; Edison · August 9, 2027">
+<meta property="og:description" content="You're invited to our wedding at Stonefields Estate, Carleton Place. Details, our story and RSVP by December 1, 2026.">
+<meta property="og:image" content="https://edisontsandoval.github.io/Wedding/img/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mary Lisa &amp; Edison, August 9, 2027, Stonefields Estate. Edison proposing at Lake Como.">
+<meta name="twitter:card" content="summary_large_image">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Mary Lisa &amp; Edison</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -22,18 +35,18 @@
      Script (Pinyon Script): ornament only, the M & E monogram and single ampersands. Never for words. */
   --script:"Pinyon Script", "Snell Roundhand", cursive;
   --body:"Jost", "Futura", "Avenir Next", system-ui, sans-serif;
-  --florals-blend:normal; --florals-op:1;
+  --florals-blend:normal; --florals-op:1; --paper-veil:rgba(0,0,0,0);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#161B14; --card:#1E251C; --ink:#F2E9DA; --muted:#B3AA97;
   --gold:#DBB25B; --honey:#F0C552; --rose:#D99A8B; --peony:#4C3431; --sage:#A1AE8B;
   --line:rgba(219,178,91,.34); --shade:rgba(0,0,0,.3); --veil:rgba(10,10,6,.5);
-  --florals-blend:normal; --florals-op:.85; color-scheme:dark }}
+  --florals-blend:normal; --florals-op:.85; --paper-veil:rgba(30,37,28,.78); color-scheme:dark }}
 :root[data-theme="dark"]{
   --paper:#161B14; --card:#1E251C; --ink:#F2E9DA; --muted:#B3AA97;
   --gold:#DBB25B; --honey:#F0C552; --rose:#D99A8B; --peony:#4C3431; --sage:#A1AE8B;
   --line:rgba(219,178,91,.34); --shade:rgba(0,0,0,.3); --veil:rgba(10,10,6,.5);
-  --florals-blend:normal; --florals-op:.85; color-scheme:dark }
+  --florals-blend:normal; --florals-op:.85; --paper-veil:rgba(30,37,28,.78); color-scheme:dark }
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -127,7 +140,7 @@ nav a.cta{color:var(--gold)}
 }
 
 /* Photo slots */
-.slot{margin:0;position:relative;background:var(--peony) url(img/paper.jpg) center/cover;border:1px solid var(--line);display:grid;place-items:center;text-align:center;overflow:hidden;aspect-ratio:4/5;max-width:100%}
+.slot{margin:0;position:relative;background:linear-gradient(var(--paper-veil),var(--paper-veil)),url(img/paper.jpg) center/cover,var(--peony);border:1px solid var(--line);display:grid;place-items:center;text-align:center;overflow:hidden;aspect-ratio:4/5;max-width:100%}
 .slot.wide{aspect-ratio:3/2}
 .slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slot figcaption{position:relative;font:500 .68rem/1.5 var(--body);letter-spacing:.16em;text-transform:uppercase;color:#6d4f40;background:rgba(255,250,244,.85);padding:.45rem .8rem;margin:1rem}
@@ -167,7 +180,7 @@ nav a.cta{color:var(--gold)}
 .stay .tel{font:400 .9rem var(--body);font-variant-numeric:tabular-nums;color:var(--gold);user-select:all}
 
 /* RSVP */
-.rsvp-shell{background:var(--card) url(img/paper.jpg) center/cover;padding:clamp(1rem,3vw,2rem);border:1px solid var(--line)}
+.rsvp-shell{background:linear-gradient(var(--paper-veil),var(--paper-veil)),url(img/paper.jpg) center/cover,var(--card);padding:clamp(1rem,3vw,2rem);border:1px solid var(--line)}
 .rsvp{background:var(--card);max-width:680px;margin:0 auto;padding:clamp(1.6rem,5vw,3.2rem);position:relative;border:1px solid var(--line)}
 .rsvp::before{content:"";position:absolute;inset:8px;border:1px solid var(--line);pointer-events:none}
 form{display:grid;gap:1.4rem;position:relative}
@@ -341,7 +354,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 .day-print.dp-a{width:min(72%,460px)}
 .day-print.dp-b{width:min(60%,380px);margin-left:auto;margin-right:4%}
 .day-print.dp-c{width:min(86%,560px)}
-.print-ph{aspect-ratio:3/2;background:var(--peony) url(img/paper.jpg) center/cover;display:grid;place-items:center;position:relative}
+.print-ph{aspect-ratio:3/2;background:linear-gradient(var(--paper-veil),var(--paper-veil)),url(img/paper.jpg) center/cover,var(--peony);display:grid;place-items:center;position:relative}
 .print-ph .slot-tag{position:relative;inset:auto;margin:1rem;text-align:center}
 @media (max-width:520px){.day-print.dp-a,.day-print.dp-b,.day-print.dp-c{width:100%;margin-left:0;margin-right:0}}
 
@@ -383,13 +396,42 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 /* Opening still: the montage's own first frame, chosen by screen shape so nothing else flashes first */
 .hero .hero-still{background:url(img/hero-poster.jpg) 50% 18%/cover no-repeat}
 @media (max-aspect-ratio:2/3){.hero .hero-still{background-image:url(img/hero-poster-portrait.jpg)}.hero{min-height:min(177.78vw,90svh)}}
+
+/* ---------- Pause control ---------- */
+.motion-toggle{position:absolute;z-index:3;top:calc(14px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));display:inline-flex;align-items:center;gap:.5rem;
+  font:500 .66rem/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:#FFF8EE;background:rgba(18,13,6,.42);border:1px solid rgba(255,248,238,.45);border-radius:999px;padding:.55rem .85rem;cursor:pointer;backdrop-filter:blur(6px)}
+.motion-toggle:hover{background:rgba(18,13,6,.62)}
+.mt-icon{width:9px;height:10px;border-left:3px solid currentColor;border-right:3px solid currentColor;box-sizing:border-box}
+.motion-toggle[aria-pressed="true"] .mt-icon{width:0;height:0;border:0;border-left:9px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.hero.motion-off .hero-grain,.hero.motion-off .hero-still,.hero.motion-off video{animation-play-state:paused}
+
+/* ---------- Phone menu and floating RSVP ---------- */
+.menu-btn,.float-rsvp{display:none}
+@media (max-width:760px){
+  header .wrap{flex-wrap:wrap;justify-content:space-between;row-gap:0}
+  .menu-btn{display:inline-flex;align-items:center;gap:.6rem;font:500 .7rem/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:.6rem 1rem;cursor:pointer}
+  .mb-lines{width:14px;height:9px;border-top:1px solid currentColor;border-bottom:1px solid currentColor;position:relative}
+  .mb-lines::after{content:"";position:absolute;left:0;right:0;top:3px;border-top:1px solid currentColor}
+  header.menu-open .mb-lines{border-color:transparent}
+  header.menu-open .mb-lines::after{top:3px;transform:rotate(45deg)}
+  header.menu-open .mb-lines::before{content:"";position:absolute;left:0;right:0;top:3px;border-top:1px solid currentColor;transform:rotate(-45deg)}
+  nav{flex:0 0 100%;display:none;overflow:visible}
+  header.menu-open nav{display:block}
+  nav ul{flex-direction:column;gap:0;padding:.3rem 0 .8rem}
+  nav a{padding:.9rem .1rem;border-top:1px solid var(--line);font-size:.8rem}
+  nav a::after{display:none}
+  .float-rsvp{display:inline-flex;position:fixed;z-index:30;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
+    background:var(--ink);color:var(--paper);font:500 .72rem/1 var(--body);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:.95rem 1.35rem;border-radius:999px;box-shadow:0 12px 26px -12px rgba(0,0,0,.55)}
+  body.on-rsvp .float-rsvp{display:none}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
     <a class="mono" href="#home" aria-label="Home">M &amp; E</a>
-    <nav aria-label="Pages">
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="siteNav"><span class="mb-lines" aria-hidden="true"></span>Menu</button>
+    <nav aria-label="Pages" id="siteNav">
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#story">Our Story</a></li>
@@ -404,6 +446,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   </div>
 </header>
 
+<a class="float-rsvp" href="#rsvp">RSVP</a>
 <main>
 <!-- HOME -->
 <section class="view" id="v-home" data-view="home">
@@ -415,6 +458,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     </video>
     <span class="hero-tint" aria-hidden="true"></span>
     <span class="hero-grain" aria-hidden="true"></span>
+    <button class="motion-toggle" type="button" id="motionToggle" aria-pressed="false"><span class="mt-icon" aria-hidden="true"></span><span class="mt-text">Pause motion</span></button>
     <svg class="hero-edge" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 48V30C180 40 330 18 560 22S930 40 1150 20 1360 10 1440 14V48Z"/></svg>
     <div class="wrap">
       <p class="eyebrow">Together with their families</p>
@@ -461,7 +505,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
       <div class="head">
         <p class="eyebrow">Our Story</p>
         <h2>How we got here</h2>
-        <p class="prose" style="color:var(--muted)">It started with a match online and a walk to the grocery store. Five years later, we're still going on walks.</p>
+        <p class="prose" style="color:var(--muted)">It started with a match online and a walk to the grocery store. Years later, we're still going on walks.</p>
       </div>
       <ol class="timeline">
         <li>
@@ -537,7 +581,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
           <div class="card" style="margin-top:.6rem">
             <dl class="facts">
               <div><dt>Address</dt><dd>1985 9th Line<small>Beckwith, Ontario K7C 3P2</small></dd></div>
-              <div><dt>From Kanata &amp; Stittsville</dt><dd>About 30 minutes<small>West on Highway 7, then south past Carleton Place.</small></dd></div>
+              <div><dt>Driving time</dt><dd>About 30 minutes west of Kanata<small>About 45 minutes from downtown Ottawa, mostly along Highway 7. Tap Open in Maps for turn-by-turn directions.</small></dd></div>
             </dl>
           </div>
           <figure class="print print-second"><span class="print-img"><img src="img/stonefields-2.jpg" width="914" height="585" alt="Inside the Loft: timber beams, chandeliers and round tables set for dinner"></span><figcaption>Inside the Loft, set for dinner</figcaption></figure>
@@ -563,11 +607,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
       </div>
       <ol class="sched">
         <li><time>3:30 pm</time><div><h3>Guests arrive</h3><p>Make your way to the Ceremony House and find a seat.</p></div></li>
-        <li><time>4:00 pm</time><div><h3>Ceremony</h3><p>In the Ceremony House, rain or shine.</p><figure class="print day-print dp-a"><span class="print-img"><img src="img/day-ceremony.jpg" width="685" height="500" alt="Inside the Ceremony House: white walls, crystal chandeliers and rows of white chairs facing a fireplace" loading="lazy"></span><figcaption>The Ceremony House, where we'll say our vows</figcaption></figure></div></li>
+        <li><time>4:00 pm</time><div><h3>Ceremony</h3><p>In the Ceremony House, rain or shine.</p><figure class="print day-print dp-a"><span class="print-img"><img src="img/day-ceremony.jpg" width="1400" height="1024" alt="Inside the Ceremony House: white walls, crystal chandeliers and rows of white chairs facing a fireplace" loading="lazy"></span><figcaption>The Ceremony House, where we'll say our vows</figcaption></figure></div></li>
         <li><time>4:30 pm</time><div><h3>Cocktail hour</h3><p>Drinks and canapés on the verandah and patio until 6:30.</p><figure class="print day-print dp-b"><span class="print-img"><img src="img/day-cocktails.jpg" width="960" height="640" alt="Iron garden lanterns with the Loft and its white barn doors behind" loading="lazy"></span><figcaption>Lanterns outside the Loft</figcaption></figure></div></li>
         <li><time>6:30 pm</time><div><h3>Find your seat</h3><p>Make your way into the Loft and settle in at your table.</p></div></li>
         <li><time>6:45 pm</time><div><h3>Welcome &amp; grand entrance</h3><p>Our MC opens the evening and the two of us make our entrance.</p></div></li>
-        <li><time>7:00 pm</time><div><h3>Dinner &amp; reception</h3><p>Dinner, speeches and dancing in the Loft, the estate's main barn.</p><figure class="print day-print dp-c"><span class="print-img"><img src="img/day-reception.jpg" width="365" height="547" alt="The Loft dressed for a wedding dinner, with white drapes, greenery and chandeliers over round tables" loading="lazy"></span><figcaption>The Loft, ready for the party</figcaption></figure></div></li>
+        <li><time>7:00 pm</time><div><h3>Dinner &amp; reception</h3><p>Dinner, speeches and dancing in the Loft, the estate's main barn.</p><figure class="print day-print dp-c"><span class="print-img"><img src="img/day-reception.jpg" width="900" height="1345" alt="The Loft dressed for a wedding dinner, with white drapes, greenery and chandeliers over round tables" loading="lazy"></span><figcaption>The Loft, ready for the party</figcaption></figure></div></li>
         <li><time>1:00 am</time><div><h3>Last dance</h3><p>The party wraps up. Please have your ride home booked for 1 am.</p><figure class="print day-print dp-d"><span class="print-img"><img src="img/day-night.jpg" width="1200" height="800" alt="Stonefields at night, the Loft glowing with warm lights and guests inside" loading="lazy"></span><figcaption>Stonefields after dark</figcaption></figure></div></li>
       </ol>
 
@@ -648,7 +692,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
         <div class="prose">
           <p class="eyebrow">Getting home</p>
           <h3 style="font-size:1.6rem">Please don't drive after the party</h3>
-          <p>The estate is in the country, and taxis out there take a while. Plan a designated driver, or let us know on your RSVP if you'd use a shuttle back to Kanata. If enough people want one, we'll book it.</p>
+          <p>The estate is in the country, and taxis out there take a while to arrive. Plan a designated driver or book your ride home ahead of time.</p>
         </div>
       </div>
     </div>
@@ -691,6 +735,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
         <details><summary>Why do you need my reply so early?</summary><p>Some of our family and friends are flying in from overseas, and they need time for flights, visas and time off. Knowing who is coming by December 1 lets us help them plan and hold rooms nearby. If something changes later, just let us know.</p></details>
         <details><summary>Can I bring a plus-one?</summary><p>If your invitation includes a guest, their name will be on it and you can add them on the RSVP form. We're keeping the list close to 75, so we can't add extra guests beyond that.</p></details>
         <details><summary>Are kids welcome?</summary><p>We love your kids. Children named on the invitation are very welcome.</p></details>
+        <details><summary>What's for dinner?</summary><p>A three-course plated dinner, with a choice of two meat dishes or a vegetarian main. We'll choose the menu at our tasting in April and email everyone the options after that.</p></details>
         <details><summary>What if it rains?</summary><p>The ceremony is indoors in the Ceremony House and dinner is in the Loft, so the weather won't change our plans.</p></details>
         <details><summary>Is there parking?</summary><p>Yes. There's a guest lot on the property, marked 9 on the estate map at the bottom of The Day page.</p></details>
         <details><summary>Do you have a registry?</summary><p>Having you there is plenty. If you'd still like to give something, details will be here soon.</p></details>
@@ -718,7 +763,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
             </label>
             <p class="found" id="found" role="status" hidden></p>
             <label for="f-email">Email
-              <span class="hint">We'll send a reminder and any updates here.</span>
+              <span class="hint">We'll email you updates, including the dinner menu in the spring.</span>
               <input type="email" id="f-email" name="email" autocomplete="email" required>
             </label>
             <fieldset>
@@ -783,6 +828,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   function show(name){
     if(views.indexOf(name)<0) name="home";
     document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("on",v.dataset.view===name)});
+    document.body.classList.toggle("on-rsvp",name==="rsvp");
     document.querySelectorAll("nav a").forEach(function(a){
       if(a.getAttribute("href")==="#"+name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
     });
@@ -791,10 +837,22 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     var a=e.target.closest('a[href^="#"]'); if(!a) return;
     var name=a.getAttribute("href").slice(1);
     if(views.indexOf(name)<0) return;
-    e.preventDefault(); show(name); requestAnimationFrame(onScrollSafe); maybePetals(name);
-    try{history.replaceState(null,"","#"+name)}catch(_){}
-    window.scrollTo({top:0,behavior:"instant" in window?"instant":"auto"});
+    e.preventDefault(); go(name,true);
   });
+  function go(name,push){
+    show(name); requestAnimationFrame(onScrollSafe); maybePetals(name); closeMenu();
+    if(push){ try{ if(location.hash!=="#"+name) history.pushState(null,"","#"+name) }catch(_){} }
+    window.scrollTo({top:0,behavior:"instant" in window?"instant":"auto"});
+  }
+  // Back and forward buttons move between sections
+  window.addEventListener("popstate",function(){ go((location.hash||"#home").slice(1),false) });
+  window.addEventListener("hashchange",function(){ var n=(location.hash||"#home").slice(1); if(!document.querySelector('.view.on[data-view="'+n+'"]')) go(n,false) });
+
+  // Phone menu
+  var menuBtn=document.getElementById("menuBtn"), headerEl=document.querySelector("header");
+  function closeMenu(){ if(headerEl){ headerEl.classList.remove("menu-open") } if(menuBtn) menuBtn.setAttribute("aria-expanded","false") }
+  if(menuBtn) menuBtn.addEventListener("click",function(){ var open=!headerEl.classList.contains("menu-open"); headerEl.classList.toggle("menu-open",open); menuBtn.setAttribute("aria-expanded",String(open)) });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeMenu() });
   function maybePetals(n){ if(typeof Petals!=="undefined"&&Petals) Petals.onView(n) }
   function onScrollSafe(){ if(typeof onScroll==="function") onScroll() }
   show((location.hash||"#home").slice(1));
@@ -840,7 +898,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 
   // Petals: follow the reader down the home page, ride little gusts when scrolling up, rest in the footer
   var Petals=(function(){
-    var layer=null, ps=[], running=false, lastY=0, lastT=0, t0=0, lastUp=-1e9;
+    var layer=null, ps=[], running=false, paused=false, lastY=0, lastT=0, t0=0, lastUp=-1e9;
     function rand(a,b){return a+Math.random()*(b-a)}
     function sign(){return Math.random()<.5?-1:1}
     function wrap(a){return ((a%360)+540)%360-180}
@@ -919,11 +977,15 @@ body:not(.show-slots) .slot-tag-inline{display:none}
       });
       requestAnimationFrame(frame);
     }
-    return {onView:function(name){
+    return {pause:function(b){
+      paused=b;
+      if(b){ running=false }
+      else if(layer&&!layer.hidden&&!running){ running=true; lastT=0; lastY=scrollY; requestAnimationFrame(frame) }
+    }, onView:function(name){
       if(name==="home"){
         if(!layer) build();
         layer.hidden=false;
-        if(!running){ running=true; lastT=0; lastY=scrollY; if(!t0) t0=performance.now(); requestAnimationFrame(frame) }
+        if(!running&&!paused){ running=true; lastT=0; lastY=scrollY; if(!t0) t0=performance.now(); requestAnimationFrame(frame) }
       } else if(layer){ layer.hidden=true; running=false }
     }};
   })();
@@ -950,7 +1012,25 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     if(tall&&tall.addEventListener) tall.addEventListener("change",function(){ v.load(); if(!still){ var r=v.play(); if(r&&r.catch) r.catch(function(){}) } });
     if(still){ v.removeAttribute("autoplay"); try{ v.pause() }catch(e){} }
     else { var p=v.play&&v.play(); if(p&&p.catch) p.catch(function(){}) }
-    if(!still) document.addEventListener("visibilitychange",function(){ if(document.visibilityState==="visible"&&v.paused){ var q=v.play(); if(q&&q.catch) q.catch(function(){}) } });
+    if(!still) document.addEventListener("visibilitychange",function(){ if(document.visibilityState==="visible"&&v.paused&&!document.querySelector(".hero.motion-off")){ var q=v.play(); if(q&&q.catch) q.catch(function(){}) } });
+  })();
+
+
+  // Pause control: stops the montage, grain and petals for anyone who finds motion distracting
+  (function(){
+    var btn=document.getElementById("motionToggle"), v=document.getElementById("montage"), hero=document.querySelector(".hero");
+    if(!btn) return;
+    if(still){ btn.hidden=true; return }
+    var off=false; try{ off=localStorage.getItem("motionOff")==="1" }catch(_){}
+    function apply(){
+      btn.setAttribute("aria-pressed",String(off));
+      btn.querySelector(".mt-text").textContent=off?"Play motion":"Pause motion";
+      hero.classList.toggle("motion-off",off);
+      if(v){ if(off) v.pause(); else { var r=v.play(); if(r&&r.catch) r.catch(function(){}) } }
+      if(typeof Petals!=="undefined"&&Petals) Petals.pause(off);
+    }
+    btn.addEventListener("click",function(){ off=!off; try{ localStorage.setItem("motionOff",off?"1":"0") }catch(_){} apply() });
+    apply();
   })();
 
   // Countdown to 4:00 pm Eastern, Aug 9 2027
@@ -1010,7 +1090,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     function done(){
       var first=name.split(/\s+/)[0];
       document.getElementById("thanksHead").textContent=att==="yes"?"We can't wait to see you, "+first+".":"We'll miss you, "+first+".";
-      document.getElementById("thanksBody").textContent=att==="yes"?"Your reply is in. We'll email "+email+" closer to the date with meal choices and final details.":"Thanks for letting us know. We'll raise a glass to you on the ninth.";
+      document.getElementById("thanksBody").textContent=att==="yes"?"Your reply is in. We'll email "+email+" in the spring with the dinner menu and final details.":"Thanks for letting us know. We'll raise a glass to you on the ninth.";
       form.hidden=true; document.getElementById("thanks").hidden=false;
     }
     if(!RSVP_ENDPOINT){ done(); return }
