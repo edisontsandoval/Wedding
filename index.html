@@ -365,6 +365,10 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 .stay-photo{display:block;overflow:hidden;margin-bottom:.6rem;border:1px solid var(--line)}
 .stay-photo img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
 @media (hover:hover){.stay:hover .stay-photo img{transform:scale(1.05)}}
+
+.story-print{width:min(58%,340px)}
+.story-print img{aspect-ratio:3/4;object-position:40% 30%}
+@media (max-width:520px){.story-print{width:82%}}
 </style>
 </head>
 <body>
@@ -448,7 +452,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
           <div class="tl-body">
             <h3>A few streets apart</h3>
             <p>We matched online in May 2022 and soon found out we lived only a few streets from each other. A quick trip to the grocery store turned into a walk, and before long evening walks were just something we did. Seeing each other was the easiest thing in the world.</p>
-            <figure class="slot wide"><figcaption class="slot-tag">Photo · 2022 · Early days</figcaption></figure>
+            <figure class="print story-print"><span class="print-img"><img src="img/story-2022.jpg" width="756" height="1008" alt="Mary Lisa and Edison smiling cheek to cheek in a selfie by a river, under green leaves" loading="lazy"></span><figcaption>Our first photo together, 2022</figcaption></figure>
           </div>
         </li>
         <li>
