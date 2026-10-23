@@ -406,6 +406,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   <div class="hero">
     <img class="poster" onerror="this.remove()" src="img/hero.jpg" alt="A meadow of yellow and pink wildflowers in front of a stone farmhouse at sunset">
     <video id="montage" class="hero-video" autoplay muted loop playsinline preload="auto" poster="img/hero-poster.jpg" aria-hidden="true">
+      <source src="video/hero-portrait.mp4" type="video/mp4" media="(max-aspect-ratio: 2/3)">
       <source src="video/hero-landscape.mp4" type="video/mp4">
     </video>
     <span class="hero-tint" aria-hidden="true"></span>
@@ -940,6 +941,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 
   // Hero montage: respect reduced motion by holding on the first frame
   (function(){ var v=document.getElementById("montage"); if(!v) return;
+    // Phones (tall, narrow screens) get the vertical cut; everything else the landscape one
+    var tall=window.matchMedia&&matchMedia("(max-aspect-ratio: 2/3)");
+    function pick(){ v.poster=tall&&tall.matches?"img/hero-poster-portrait.jpg":"img/hero-poster.jpg" }
+    pick();
+    if(tall&&tall.addEventListener) tall.addEventListener("change",function(){ pick(); v.load(); if(!still){ var r=v.play(); if(r&&r.catch) r.catch(function(){}) } });
     if(still){ v.removeAttribute("autoplay"); try{ v.pause() }catch(e){} }
     else { var p=v.play&&v.play(); if(p&&p.catch) p.catch(function(){}) }
     if(!still) document.addEventListener("visibilitychange",function(){ if(document.visibilityState==="visible"&&v.paused){ var q=v.play(); if(q&&q.catch) q.catch(function(){}) } });
