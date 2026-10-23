@@ -36,6 +36,7 @@
   --florals-blend:normal; --florals-op:.85; color-scheme:dark }
 
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--paper);color:var(--ink);font:300 17px/1.7 var(--body);-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
 a{color:inherit}
@@ -117,7 +118,7 @@ nav a.cta{color:var(--gold)}
 .timeline .yr{font:italic 400 1.5rem/1 var(--display);color:var(--rose);text-align:right;padding-top:.3rem}
 .timeline h3{font-size:1.6rem;margin-bottom:.5rem}
 .tl-body{display:grid;gap:1rem;position:relative}
-.tl-body::before{content:"";position:absolute;left:-2.35rem;top:.75rem;width:9px;height:9px;border-radius:50%;background:var(--honey);box-shadow:0 0 0 4px var(--paper)}
+.tl-body::before{content:"";position:absolute;left:calc(-1rem - 4px);top:.75rem;width:9px;height:9px;border-radius:50%;background:var(--honey);box-shadow:0 0 0 4px var(--paper)}
 @media (max-width:620px){
   .timeline::before{left:4px}
   .timeline li{grid-template-columns:1fr;gap:.4rem;padding-left:1.8rem}
@@ -126,7 +127,7 @@ nav a.cta{color:var(--gold)}
 }
 
 /* Photo slots */
-.slot{position:relative;background:var(--peony) url(img/paper.jpg) center/cover;border:1px solid var(--line);display:grid;place-items:center;text-align:center;overflow:hidden;aspect-ratio:4/5;max-width:100%}
+.slot{margin:0;position:relative;background:var(--peony) url(img/paper.jpg) center/cover;border:1px solid var(--line);display:grid;place-items:center;text-align:center;overflow:hidden;aspect-ratio:4/5;max-width:100%}
 .slot.wide{aspect-ratio:3/2}
 .slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slot figcaption{position:relative;font:500 .68rem/1.5 var(--body);letter-spacing:.16em;text-transform:uppercase;color:#6d4f40;background:rgba(255,250,244,.85);padding:.45rem .8rem;margin:1rem}
@@ -187,7 +188,7 @@ fieldset{border:0;margin:0;padding:0;display:grid;gap:.6rem}
 .thanks{text-align:center;display:grid;gap:1rem;justify-items:center;padding-block:2rem}
 /* Words sit in the open middle of the wreath, which is up and right of the image centre */
 .change-note{font-size:.88rem;color:var(--muted);max-width:40ch;border-top:1px solid var(--line);padding-top:1rem;margin-top:.2rem}
-.thanks .thanks-title{position:absolute;left:56%;top:43%;transform:translate(-50%,-50%);margin:0;text-align:center;font:italic 400 15cqw/.92 var(--display);color:var(--rose);letter-spacing:-.01em}
+.thanks .thanks-title{position:absolute;left:56%;top:40.5%;transform:translate(-50%,-50%);margin:0;text-align:center;font:italic 400 15cqw/.92 var(--display);color:var(--rose);letter-spacing:-.01em}
 .preview-note{font-size:.8rem;color:var(--muted);text-align:center;border-top:1px dashed var(--line);padding-top:1rem}
 
 /* FAQ */
@@ -198,8 +199,8 @@ fieldset{border:0;margin:0;padding:0;display:grid;gap:.6rem}
 .faq details[open] summary::after{content:"–"}
 .faq details p{margin-top:.7rem;color:var(--muted);max-width:62ch}
 
-footer{border-top:1px solid var(--line);padding-block:3rem;text-align:center}
-footer .names{font:italic 400 clamp(1.9rem,4.5vw,2.6rem)/1.2 var(--display);color:var(--ink);letter-spacing:-.005em;margin-bottom:.5rem}
+footer{border-top:1px solid var(--line);padding-block:3rem 7.5rem;text-align:center}
+footer .names{font:italic 400 clamp(1.9rem,4.5vw,2.6rem)/1.2 var(--display);color:var(--ink);letter-spacing:-.005em;text-transform:none;margin-bottom:.5rem}
 footer .names .amp{font-family:var(--script);font-style:normal;color:var(--gold);padding:0 .1em}
 footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 
@@ -215,7 +216,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 .rsvp-shell::before{top:-24px;left:-24px}
 .rsvp-shell::after{bottom:-24px;right:-24px;transform:rotate(180deg)}
 .rsvp{z-index:2}
-.wreath{width:min(340px,100%);aspect-ratio:800/764;position:relative;container-type:inline-size;background:url(img/wreath.webp) center/contain no-repeat}
+.wreath{width:min(340px,100%);aspect-ratio:900/872;position:relative;container-type:inline-size;background:url(img/wreath.webp) center/contain no-repeat}
 
 /* ---------- Motion ---------- */
 .js .reveal{opacity:.5;transform:translateY(24px);transition:opacity .9s ease var(--d,0s),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
@@ -296,6 +297,74 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 .found{font:400 .95rem/1.4 var(--body);color:var(--sage);margin-top:-.6rem}
 .trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .btn[disabled]{opacity:.6;cursor:wait}
+
+/* ---------- Hero to page seam ---------- */
+.hero-edge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:clamp(22px,4vw,48px);z-index:2;fill:var(--paper);pointer-events:none}
+.seam{position:relative;z-index:4;height:0}
+.seam img{position:absolute;top:0;right:max(8px,calc((100vw - 1180px) / 2));width:min(520px,82vw);max-width:none;transform:translateY(-58%);pointer-events:none;
+  filter:drop-shadow(0 6px 8px rgba(30,22,10,.14));animation:settle 1.4s .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes settle{from{opacity:.15;translate:0 14px}to{opacity:1;translate:0 0}}
+.seam + .band{padding-top:clamp(4.5rem,10vw,6.5rem)}
+/* Leave room so the garland never covers the countdown */
+@media (max-width:980px){.hero .wrap{padding-bottom:calc(2.5rem + min(110px,17vw))}}
+@media (prefers-reduced-motion:reduce){.seam img{animation:none}}
+
+/* ---------- Petals: drift down the home page and rest in the footer ---------- */
+body{overflow-x:clip}
+.petal-layer{position:absolute;left:0;top:0;width:100%;height:0;z-index:6;pointer-events:none}
+.petal{position:absolute;left:0;top:0;height:auto;max-width:none;pointer-events:none;will-change:transform;
+  filter:drop-shadow(0 2px 3px rgba(40,28,12,.16))}
+
+/* ---------- Our Story: writing prompts and the future year ---------- */
+.prompt{font-style:italic;color:var(--muted);border-left:2px dashed var(--line);padding-left:.9rem}
+.slot-tag-inline{display:inline-block;font:500 .64rem/1 var(--body);font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);border:1px solid currentColor;border-radius:999px;padding:.3rem .55rem;margin-right:.35rem;vertical-align:.15em}
+body:not(.show-slots) .slot-tag-inline{display:none}
+.timeline li.future .yr{color:var(--gold)}
+.timeline li.future .tl-body::before{background:var(--paper);box-shadow:0 0 0 4px var(--paper),inset 0 0 0 2px var(--gold)}
+.next-card{display:grid;gap:.5rem;justify-items:start;padding:1.4rem 1.5rem;border:1px dashed var(--gold);background:color-mix(in srgb,var(--peony) 22%,transparent)}
+.next-place{font:400 1.25rem/1.3 var(--display)}
+.next-card .btn{margin-top:.4rem}
+
+/* ---------- Venue photos, laid out like prints on the invitation table ---------- */
+.print{margin:0;background:var(--card);padding:10px 10px 0;border:1px solid var(--line);box-shadow:0 24px 44px -30px var(--shade),0 2px 6px -2px var(--shade);position:relative;z-index:1;align-self:start}
+.print-img{display:block;overflow:hidden}
+.print img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.print figcaption{font:italic 400 1rem/1.3 var(--display);color:var(--muted);padding:.7rem .2rem .8rem}
+.print-second{width:84%;justify-self:end;margin-top:-2.2rem}
+@media (min-width:821px){.print-main{position:sticky;top:calc(84px + env(safe-area-inset-top,0px))}.print-main img{aspect-ratio:4/5;object-position:52% 50%}}
+@media (hover:hover){.print:hover img{transform:scale(1.04)}}
+@media (max-width:820px){.print-second{width:92%;margin-top:-1.2rem;margin-right:0}}
+
+/* ---------- The Day: a few framed photos between moments ---------- */
+.day-print{margin-top:1.1rem}
+.day-print.dp-a{width:min(72%,460px)}
+.day-print.dp-b{width:min(60%,380px);margin-left:auto;margin-right:4%}
+.day-print.dp-c{width:min(86%,560px)}
+.print-ph{aspect-ratio:3/2;background:var(--peony) url(img/paper.jpg) center/cover;display:grid;place-items:center;position:relative}
+.print-ph .slot-tag{position:relative;inset:auto;margin:1rem;text-align:center}
+@media (max-width:520px){.day-print.dp-a,.day-print.dp-b,.day-print.dp-c{width:100%;margin-left:0;margin-right:0}}
+
+.day-print.dp-c{width:min(44%,290px)}
+.day-print.dp-c img{aspect-ratio:2/3}
+.day-print.dp-d{width:min(88%,600px);margin-left:auto}
+/* Estate map */
+.map-block{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:3rem;align-items:center;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--line)}
+.map-block > *{min-width:0}
+.map-print img{aspect-ratio:auto}
+.map-open{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.map-open:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+@media (max-width:820px){.map-block{grid-template-columns:1fr;gap:1.6rem}}
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(18,14,8,.93);display:grid;place-items:center;
+  padding:calc(64px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.lb-scroll{max-width:100%;max-height:100%;overflow:auto;-webkit-overflow-scrolling:touch;background:#fff;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lb-scroll img{display:block;width:min(1000px,170vw);max-width:none;height:auto}
+.lightbox .lb-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));color:#fff;border-color:rgba(255,255,255,.75);background:transparent;padding:.6rem 1.1rem}
+.lightbox .lb-close:hover{background:#fff;color:#2C3424;border-color:#fff}
+@media (min-width:1050px){.lb-scroll img{width:min(1000px,92vw)}}
+
+.stay-photo{display:block;overflow:hidden;margin-bottom:.6rem;border:1px solid var(--line)}
+.stay-photo img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){.stay:hover .stay-photo img{transform:scale(1.05)}}
 </style>
 </head>
 <body>
@@ -325,6 +394,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
     <!-- Montage: drop the video in as video/montage.mp4 and remove the hidden attribute -->
     <video id="montage" autoplay muted loop playsinline poster="img/hero.jpg" hidden></video>
     <span class="slot-tag">Video montage goes here</span>
+    <svg class="hero-edge" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 48V30C180 40 330 18 560 22S930 40 1150 20 1360 10 1440 14V48Z"/></svg>
     <div class="wrap">
       <p class="eyebrow">Together with their families</p>
       <h1>Mary Lisa <span class="amp">&amp;</span> Edison</h1>
@@ -336,13 +406,14 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
       </div>
     </div>
   </div>
+  <div class="seam" aria-hidden="true"><img src="img/florals.webp" alt=""></div>
 
-  <div class="band has-corner">
+  <div class="band">
     <div class="wrap intro">
       <div class="prose">
         <p class="eyebrow">You're invited</p>
         <h2 style="font-size:clamp(2rem,4.6vw,3.2rem)">We'd love for you to be there</h2>
-        <p>After eight years, two apartments, one very stubborn houseplant and more road trips up the Ottawa Valley than we can count, we're getting married.</p>
+        <p>After five years, countless evening walks and more grocery runs together than we can count, we're getting married.</p>
         <p>We're keeping it close: about 75 of the people who have cheered us on, fed us, and put up with our karaoke. If you're reading this, you're one of them.</p>
         <p>Have a look around, read how it all started, and please send us your RSVP by <strong>December 1, 2026</strong>.</p>
         <div class="row">
@@ -354,13 +425,12 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
         <dl class="facts">
           <div><dt>When</dt><dd>Monday, August 9, 2027<small>Ceremony at 4:00 pm. Please arrive by 3:30.</small></dd></div>
           <div><dt>Where</dt><dd>Stonefields Estate<small>1985 9th Line, Beckwith, Ontario K7C 3P2</small></dd></div>
-          <div><dt>Dress</dt><dd>Summer formal<small>Garden-friendly shoes. Part of the evening is on grass.</small></dd></div>
+          <div><dt>Dress</dt><dd>Summer formal<small>Comfortable shoes help. You'll walk between buildings on garden paths.</small></dd></div>
           <div><dt>Reply by</dt><dd>December 1, 2026<small>Early, so everyone travelling from abroad has time to plan.</small></dd></div>
         </dl>
       </div>
     </div>
   </div>
-  <img class="florals" onerror="this.remove()" src="img/florals.webp" alt="">
 </section>
 
 <!-- STORY -->
@@ -370,46 +440,59 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
       <div class="head">
         <p class="eyebrow">Our Story</p>
         <h2>How we got here</h2>
-        <p class="prose" style="color:var(--muted)">The short version: Edison talked too much, Mary Lisa laughed anyway, and neither of us has gone home early since.</p>
+        <p class="prose" style="color:var(--muted)">It started with a match online and a walk to the grocery store. Five years later, we're still going on walks.</p>
       </div>
       <ol class="timeline">
         <li>
-          <p class="yr">2018</p>
-          <div class="tl-body">
-            <h3>A borrowed umbrella</h3>
-            <p>We met outside a coffee shop on Hazeldean Road during a downpour. Mary Lisa had an umbrella and Edison did not. He offered to walk her to her car, which made no sense since it was her umbrella. She said yes anyway.</p>
-            <figure class="slot wide"><figcaption class="slot-tag">Photo · First photo together</figcaption></figure>
-          </div>
-        </li>
-        <li>
-          <p class="yr">2019</p>
-          <div class="tl-body">
-            <h3>The first trip</h3>
-            <p>Our first real trip was a weekend in Prince Edward County. We got lost twice, ate far too many butter tarts, and found out we can sit in a car for six hours and still have things to say.</p>
-            <figure class="slot wide"><figcaption class="slot-tag">Photo · Road trip</figcaption></figure>
-          </div>
-        </li>
-        <li>
           <p class="yr">2022</p>
           <div class="tl-body">
-            <h3>One set of keys</h3>
-            <p>We moved into our first place in Kanata. It came with a crooked kitchen drawer and a balcony just big enough for two chairs and a tomato plant that never once produced a tomato.</p>
-            <figure class="slot wide"><figcaption class="slot-tag">Photo · Moving day</figcaption></figure>
+            <h3>A few streets apart</h3>
+            <p>We matched online in May 2022 and soon found out we lived only a few streets from each other. A quick trip to the grocery store turned into a walk, and before long evening walks were just something we did. Seeing each other was the easiest thing in the world.</p>
+            <figure class="slot wide"><figcaption class="slot-tag">Photo · 2022 · Early days</figcaption></figure>
+          </div>
+        </li>
+        <li>
+          <p class="yr">2023</p>
+          <div class="tl-body">
+            <h3>Title for 2023</h3>
+            <p class="prompt"><span class="slot-tag-inline">For Mary Lisa</span> What happened in 2023? A trip, a first, a favourite memory, a funny moment. Two to four sentences is plenty.</p>
+            <figure class="slot wide"><figcaption class="slot-tag">Photo · 2023</figcaption></figure>
+          </div>
+        </li>
+        <li>
+          <p class="yr">2024</p>
+          <div class="tl-body">
+            <h3>Title for 2024</h3>
+            <p class="prompt"><span class="slot-tag-inline">For Mary Lisa</span> What happened in 2024? Maybe meeting each other's families, a trip, or a place that became yours. Two to four sentences is plenty.</p>
+            <figure class="slot wide"><figcaption class="slot-tag">Photo · 2024</figcaption></figure>
           </div>
         </li>
         <li>
           <p class="yr">2025</p>
           <div class="tl-body">
-            <h3>The question</h3>
-            <p>Edison had a whole plan involving a picnic at sunset. It rained, of course. He proposed in the kitchen instead, under the same umbrella from 2018, which he had kept in the closet for seven years without telling her.</p>
-            <figure class="slot wide"><figcaption class="slot-tag">Photo · The proposal</figcaption></figure>
+            <h3>Title for 2025</h3>
+            <p class="prompt"><span class="slot-tag-inline">For Mary Lisa</span> What happened in 2025? Moving in together in November, and any other big moments from the year. Two to four sentences is plenty.</p>
+            <figure class="slot wide"><figcaption class="slot-tag">Photo · 2025</figcaption></figure>
           </div>
         </li>
         <li>
+          <p class="yr">2026</p>
+          <div class="tl-body">
+            <h3>Title for 2026</h3>
+            <p class="prompt"><span class="slot-tag-inline">For Mary Lisa</span> What happened in 2026? The year of planning: the proposal, if it falls here, and choosing a venue. Two to four sentences is plenty.</p>
+            <figure class="slot wide"><figcaption class="slot-tag">Photo · 2026</figcaption></figure>
+          </div>
+        </li>
+        <li class="future">
           <p class="yr">2027</p>
           <div class="tl-body">
-            <h3>See you at Stonefields</h3>
-            <p>We toured ten venues across Ottawa and the towns around it. The moment we walked up to the old stone farmhouse, we looked at each other and stopped comparing.</p>
+            <h3>The next chapter</h3>
+            <p>We toured ten venues across Ottawa and the towns around it. Once we saw Stonefields, we stopped looking. On August 9, 2027, we'll say our vows there, and we'd love for you to be with us.</p>
+            <div class="next-card">
+              <p class="eyebrow">Monday, August 9, 2027</p>
+              <p class="next-place">Stonefields Estate · Carleton Place</p>
+              <a class="btn" href="#rsvp">RSVP by December 1</a>
+            </div>
           </div>
         </li>
       </ol>
@@ -426,21 +509,22 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
         <h2>Stonefields Estate</h2>
       </div>
       <div class="split">
-        <figure class="slot venue-photo"><figcaption class="slot-tag">Photo · Stonefields (your upload)</figcaption></figure>
+        <figure class="print print-main"><span class="print-img"><img src="img/stonefields-1.jpg" width="945" height="605" alt="The main barn at Stonefields Estate, with white-trimmed barn doors and gardens out front"></span><figcaption>The Loft, Stonefields' main barn</figcaption></figure>
         <div class="prose">
           <p>Stonefields is a 120-acre heritage farm just outside Carleton Place, with an original stone farmhouse, old log barns and long views over the fields. We'll have the whole property to ourselves for the day.</p>
-          <p>The ceremony is outside in front of the farmhouse. If the weather has other plans, the team can move everything indoors to the Ceremony House, so there's no need to worry about the forecast.</p>
+          <p>We'll say our vows in the Ceremony House, a bright white chapel with crystal chandeliers. It's indoors, so the weather can do whatever it likes.</p>
           <div class="card" style="margin-top:.6rem">
             <dl class="facts">
               <div><dt>Address</dt><dd>1985 9th Line<small>Beckwith, Ontario K7C 3P2</small></dd></div>
               <div><dt>From Kanata &amp; Stittsville</dt><dd>About 30 minutes<small>West on Highway 7, then south past Carleton Place.</small></dd></div>
             </dl>
           </div>
+          <figure class="print print-second"><span class="print-img"><img src="img/stonefields-2.jpg" width="914" height="585" alt="Inside the Loft: timber beams, chandeliers and round tables set for dinner"></span><figcaption>Inside the Loft, set for dinner</figcaption></figure>
           <div class="row"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=1985+9th+Line+Beckwith+Ontario" target="_blank" rel="noopener">Open in Maps</a></div>
         </div>
       </div>
       <div class="spaces">
-        <div class="space"><p class="eyebrow">4:00 pm</p><h3>The farmhouse lawn</h3><p>Where we'll say our vows, with the stone house behind us.</p></div>
+        <div class="space"><p class="eyebrow">4:00 pm</p><h3>The Ceremony House</h3><p>Where we'll say our vows, under the chandeliers.</p></div>
         <div class="space"><p class="eyebrow">4:30 pm</p><h3>The verandah &amp; patio</h3><p>Cocktail hour with canapés and the outdoor bar.</p></div>
         <div class="space"><p class="eyebrow">6:30 pm</p><h3>The Loft</h3><p>Dinner, speeches and dancing until 1 am.</p></div>
       </div>
@@ -457,20 +541,20 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
         <h2>Monday, August 9</h2>
       </div>
       <ol class="sched">
-        <li><time>3:30 pm</time><div><h3>Guests arrive</h3><p>Find a seat on the lawn. Cold water and lemonade will be waiting.</p></div></li>
-        <li><time>4:00 pm</time><div><h3>Ceremony</h3><p>Outdoors in front of the farmhouse, or in the Ceremony House if it rains.</p></div></li>
-        <li><time>4:30 pm</time><div><h3>Cocktail hour</h3><p>Drinks and canapés on the verandah and patio until 6:30.</p></div></li>
+        <li><time>3:30 pm</time><div><h3>Guests arrive</h3><p>Make your way to the Ceremony House and find a seat.</p></div></li>
+        <li><time>4:00 pm</time><div><h3>Ceremony</h3><p>In the Ceremony House, rain or shine.</p><figure class="print day-print dp-a"><span class="print-img"><img src="img/day-ceremony.jpg" width="685" height="500" alt="Inside the Ceremony House: white walls, crystal chandeliers and rows of white chairs facing a fireplace" loading="lazy"></span><figcaption>The Ceremony House, where we'll say our vows</figcaption></figure></div></li>
+        <li><time>4:30 pm</time><div><h3>Cocktail hour</h3><p>Drinks and canapés on the verandah and patio until 6:30.</p><figure class="print day-print dp-b"><span class="print-img"><img src="img/day-cocktails.jpg" width="960" height="640" alt="Iron garden lanterns with the Loft and its white barn doors behind" loading="lazy"></span><figcaption>Lanterns outside the Loft</figcaption></figure></div></li>
         <li><time>6:30 pm</time><div><h3>Find your seat</h3><p>Make your way into the Loft and settle in at your table.</p></div></li>
         <li><time>6:45 pm</time><div><h3>Welcome &amp; grand entrance</h3><p>Our MC opens the evening and the two of us make our entrance.</p></div></li>
-        <li><time>7:00 pm</time><div><h3>Dinner &amp; reception</h3><p>Dinner, speeches and dancing in the Loft, the estate's main barn.</p></div></li>
-        <li><time>1:00 am</time><div><h3>Last dance</h3><p>The party wraps up. Please have your ride home booked for 1 am.</p></div></li>
+        <li><time>7:00 pm</time><div><h3>Dinner &amp; reception</h3><p>Dinner, speeches and dancing in the Loft, the estate's main barn.</p><figure class="print day-print dp-c"><span class="print-img"><img src="img/day-reception.jpg" width="365" height="547" alt="The Loft dressed for a wedding dinner, with white drapes, greenery and chandeliers over round tables" loading="lazy"></span><figcaption>The Loft, ready for the party</figcaption></figure></div></li>
+        <li><time>1:00 am</time><div><h3>Last dance</h3><p>The party wraps up. Please have your ride home booked for 1 am.</p><figure class="print day-print dp-d"><span class="print-img"><img src="img/day-night.jpg" width="1200" height="800" alt="Stonefields at night, the Loft glowing with warm lights and guests inside" loading="lazy"></span><figcaption>Stonefields after dark</figcaption></figure></div></li>
       </ol>
 
       <div class="dress split">
         <div class="prose">
           <p class="eyebrow">What to wear</p>
           <h3 style="font-size:1.8rem">Summer formal</h3>
-          <p>Think garden party dressed up. Suits without the heavy jacket are fine, and so are long or midi dresses. The ceremony and cocktail hour are on grass, so block heels or flats will save your evening.</p>
+          <p>Think garden party dressed up. Suits without the heavy jacket are fine, and so are long or midi dresses. Cocktail hour is out on the verandah and patio, and you'll walk between buildings on garden paths, so block heels or flats will save your evening.</p>
           <p>If you'd like to match the flowers, these are our colours. Please skip all-white.</p>
           <div class="swatches" aria-label="Wedding colours">
             <span style="background:#E5B23A" title="Honey"></span>
@@ -481,6 +565,19 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
             <span style="background:#2C3424" title="Moss"></span>
           </div>
         </div>
+      </div>
+
+      <div class="map-block">
+        <div class="prose">
+          <p class="eyebrow">Getting around</p>
+          <h3 style="font-size:1.8rem">The estate at a glance</h3>
+          <p>Stonefields is spread over a small country campus. Park in the guest lot (9) and follow the path to the Ceremony House (2) for the ceremony.</p>
+          <p>Cocktails are at the bar (5) and on the verandah and patio (6). Dinner and dancing are in the Loft (1).</p>
+        </div>
+        <figure class="print map-print">
+          <button class="map-open" type="button" aria-label="Open the estate map at full size"><span class="print-img"><img src="img/stonefields-map.jpg" width="1000" height="563" alt="Illustrated map of Stonefields Estate: 1 Loft, 2 Ceremony House, 3 Farmhouse, 4 Farmhouse ceremony site, 5 Cocktail hour bar, 6 Verandah and patio, 7 Badchild Pub, 8 Hawkins Settler's Cabin, 9 Guest and vendor parking" loading="lazy"></span></button>
+          <figcaption>Tap the map to see it larger</figcaption>
+        </figure>
       </div>
     </div>
   </div>
@@ -497,6 +594,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
       </div>
       <div class="stays">
         <article class="card stay">
+          <span class="stay-photo"><img src="img/hotel-grand.jpg" alt="The Grand Hotel, a three-storey stone building on Bridge Street with red awnings and a patio" loading="lazy"></span>
           <p class="eyebrow">Downtown · Historic</p>
           <h3><a class="stay-link" href="https://thegrandhotelcp.ca/" target="_blank" rel="noopener">The Grand Hotel</a></h3>
           <p>A restored 1872 hotel on the main street with 16 rooms.</p>
@@ -505,6 +603,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
           <p class="visit" aria-hidden="true">Visit website <span>↗</span></p>
         </article>
         <article class="card stay">
+          <span class="stay-photo"><img src="img/hotel-comfort.jpg" alt="The front entrance of the Comfort Inn &amp; Suites in Carleton Place at dusk" loading="lazy"></span>
           <p class="eyebrow">Easy parking · Pool</p>
           <h3><a class="stay-link" href="https://www.choicehotels.com/ontario/carleton-place/comfort-inn-hotels/cnb32" target="_blank" rel="noopener">Comfort Inn &amp; Suites</a></h3>
           <p>Free breakfast and an indoor pool, which the kids will appreciate.</p>
@@ -513,6 +612,7 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
           <p class="visit" aria-hidden="true">Visit website <span>↗</span></p>
         </article>
         <article class="card stay">
+          <span class="stay-photo"><img src="img/hotel-tricentury.jpg" alt="Tri Century Mill Suites, a restored stone mill building with a square tower" loading="lazy"></span>
           <p class="eyebrow">On the river · Kitchens</p>
           <h3><a class="stay-link" href="https://tricenturymill.com/" target="_blank" rel="noopener">Tri Century Mill Suites</a></h3>
           <p>Suites in an old mill on McArthur Island, good for families or a group of friends.</p>
@@ -570,8 +670,8 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
         <details><summary>Why do you need my reply so early?</summary><p>Some of our family and friends are flying in from overseas, and they need time for flights, visas and time off. Knowing who is coming by December 1 lets us help them plan and hold rooms nearby. If something changes later, just let us know.</p></details>
         <details><summary>Can I bring a plus-one?</summary><p>If your invitation includes a guest, their name will be on it and you can add them on the RSVP form. We're keeping the list close to 75, so we can't add extra guests beyond that.</p></details>
         <details><summary>Are kids welcome?</summary><p>We love your kids. Children named on the invitation are very welcome.</p></details>
-        <details><summary>What if it rains?</summary><p>The ceremony moves indoors to the Ceremony House. Everything else is under cover already.</p></details>
-        <details><summary>Is there parking?</summary><p>We'll confirm parking details closer to the day.</p></details>
+        <details><summary>What if it rains?</summary><p>The ceremony is indoors in the Ceremony House and dinner is in the Loft, so the weather won't change our plans.</p></details>
+        <details><summary>Is there parking?</summary><p>Yes. There's a guest lot on the property, marked 9 on the estate map at the bottom of The Day page.</p></details>
         <details><summary>Do you have a registry?</summary><p>Having you there is plenty. If you'd still like to give something, details will be here soon.</p></details>
         <details><summary>Who do I ask if something comes up?</summary><p>Text Edison or Mary Lisa directly. Contact details will be added here.</p></details>
       </div>
@@ -645,6 +745,11 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 </section>
 </main>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Stonefields Estate map" hidden>
+  <button class="lb-close btn ghost" type="button" id="lbClose">Close</button>
+  <div class="lb-scroll"><img src="img/stonefields-map.jpg" width="1000" height="563" alt="Illustrated map of Stonefields Estate with nine numbered locations and a legend"></div>
+</div>
+
 <footer>
   <div class="wrap">
     <p class="names">Mary Lisa <span class="amp">&amp;</span> Edison</p>
@@ -666,10 +771,11 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
     var a=e.target.closest('a[href^="#"]'); if(!a) return;
     var name=a.getAttribute("href").slice(1);
     if(views.indexOf(name)<0) return;
-    e.preventDefault(); show(name); requestAnimationFrame(onScrollSafe);
+    e.preventDefault(); show(name); requestAnimationFrame(onScrollSafe); maybePetals(name);
     try{history.replaceState(null,"","#"+name)}catch(_){}
     window.scrollTo({top:0,behavior:"instant" in window?"instant":"auto"});
   });
+  function maybePetals(n){ if(typeof Petals!=="undefined"&&Petals) Petals.onView(n) }
   function onScrollSafe(){ if(typeof onScroll==="function") onScroll() }
   show((location.hash||"#home").slice(1));
 
@@ -710,6 +816,111 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
   }
   addEventListener("scroll",function(){ if(!ticking){ticking=true;requestAnimationFrame(onScroll)} },{passive:true});
   onScroll();
+
+
+  // Petals: follow the reader down the home page, ride little gusts when scrolling up, rest in the footer
+  var Petals=(function(){
+    var layer=null, ps=[], running=false, lastY=0, lastT=0, t0=0, lastUp=-1e9;
+    function rand(a,b){return a+Math.random()*(b-a)}
+    function sign(){return Math.random()<.5?-1:1}
+    function wrap(a){return ((a%360)+540)%360-180}
+    function build(){
+      layer=document.createElement("div"); layer.className="petal-layer"; layer.setAttribute("aria-hidden","true");
+      document.body.appendChild(layer);
+      var narrow=innerWidth<700, n=narrow?9:12, slots=[], i;
+      for(i=0;i<n;i++) slots.push(i);
+      slots.sort(function(){return Math.random()-.5});
+      for(i=0;i<n;i++){
+        var img=new Image(); img.src="img/petal"+(1+i%9)+".webp"; img.alt=""; img.className="petal";
+        var sz=narrow?rand(16,26):rand(20,34); img.style.width=sz.toFixed(0)+"px";
+        layer.appendChild(img);
+        ps.push({el:img,s:sz,fx:rand(.06,.94),fy:rand(.12,.8),y:-rand(40,innerHeight*.7),anchor:0,
+          ph:rand(0,6.283),ph2:rand(0,6.283),spin:rand(-38,38),r0:rand(0,360),swayA:rand(18,42),swayF:rand(.35,.7),flipF:rand(.8,1.6),
+          slot:slots[i],n:n,rr:rand(-35,35),idle:rand(14,28),
+          gy:0,vy:0,gx:0,vx:0,rz:0,wz:0,rx:0,wx:0,ry:0,wy:0,      // gust offsets, speeds and spins
+          qy:0,qx:0,qz:0,qrx:0,qry:0,                              // gust waiting to reach this petal
+          gl:1,gd:1,lag:.1,kz:0,krx:0,kry:0});
+      }
+    }
+    // Every new gust treats each petal differently: strength, direction, delay and how it tumbles
+    function newGust(){
+      ps.forEach(function(p){
+        p.gl=rand(.35,1); p.gd=sign()*rand(.3,1); p.lag=rand(.02,.3);
+        p.kz=sign()*rand(90,420);
+        p.krx=Math.random()<.55?sign()*rand(220,540):sign()*rand(20,90);   // some flip right over, some only tilt
+        p.kry=sign()*rand(40,260);
+      });
+    }
+    // Resting places: a gentle smile-shaped curve along the bottom of the footer
+    function restOf(p,foot){
+      var t=(p.slot+.5)/p.n, w=Math.min(foot.width*.86,860), cx=foot.left+foot.width/2;
+      return {x:cx+(t-.5)*w-p.s/2, y:foot.bottom-36-p.s/2-24*Math.pow(2*t-1,2)+(p.slot%2?6:-4)};
+    }
+    function frame(now){
+      if(!running) return;
+      var dt=lastT?Math.min(.05,(now-lastT)/1000):0; lastT=now;
+      var sy=scrollY, d=sy-lastY; lastY=sy;
+      var vh=innerHeight, vw=document.documentElement.clientWidth, t=(now-t0)/1000;
+      var fe=document.querySelector("footer"); if(!fe) return;
+      var fr=fe.getBoundingClientRect(), foot={left:fr.left,width:fr.width,bottom:fr.bottom+sy}, footerInView=fr.bottom<vh+60;
+      if(d<0 && !still){ if(now-lastUp>350) newGust(); lastUp=now }
+      ps.forEach(function(p){
+        var rest=restOf(p,foot);
+        if(still){ p.y=rest.y }
+        else{
+          var a=sy+p.fy*vh; if(a>p.anchor) p.anchor=a;
+          p.anchor+=p.idle*dt;                                          // keeps falling on its own, all the way to the footer
+          var target=footerInView?rest.y:Math.min(p.anchor,rest.y);
+          if(p.y<target) p.y=Math.min(target,p.y+Math.max((target-p.y)*(1-Math.exp(-dt/1.2)),12*dt));
+          if(d<0){ var u=-d; p.qy-=u*2.1*p.gl; p.qx+=u*.9*p.gd; p.qz+=p.kz*u/360; p.qrx+=p.krx*u/360; p.qry+=p.kry*u/360 }
+          var rl=1-Math.exp(-dt/(.05+p.lag));                          // the gust reaches each petal after its own delay
+          p.vy+=p.qy*rl; p.qy-=p.qy*rl; p.vx+=p.qx*rl; p.qx-=p.qx*rl;
+          p.wz+=p.qz*rl; p.qz-=p.qz*rl; p.wx+=p.qrx*rl; p.qrx-=p.qrx*rl; p.wy+=p.qry*rl; p.qry-=p.qry*rl;
+          p.vy+=(-p.gy*2.2-p.vy*1.6)*dt; p.gy=Math.max(-380,p.gy+p.vy*dt);   // soft springs: gravity always wins in the end
+          p.vx+=(-p.gx*1.2-p.vx*1.4)*dt; p.gx+=p.vx*dt;
+          p.rz+=p.wz*dt; p.wz*=Math.exp(-dt/1.4);
+          p.rx+=p.wx*dt; p.wx*=Math.exp(-dt/1.2);
+          p.ry+=p.wy*dt; p.wy*=Math.exp(-dt/1.0);
+        }
+        var land=Math.min(1,Math.max(0,1-(rest.y-p.y)/260)); land=land*land*(3-2*land);
+        if(land>.85 && Math.abs(p.wx)<40 && Math.abs(p.wy)<40){            // once the breeze passes, settle face-up again
+          var e=1-Math.exp(-dt/.7);
+          p.rx+=(Math.round(p.rx/360)*360-p.rx)*e; p.ry+=(Math.round(p.ry/360)*360-p.ry)*e;
+        }
+        var fallX=p.fx*vw+Math.sin(t*p.swayF+p.ph)*p.swayA;
+        var gustK=1-.45*land, x=fallX+(rest.x-fallX)*land+p.gx*gustK;
+        x=Math.max(4,Math.min(vw-p.s-4,x));
+        var restR=p.rr+(still?0:Math.sin(t*.7+p.ph)*4);
+        var fallR=p.r0+t*p.spin+Math.sin(t*p.swayF*1.3+p.ph)*25;
+        var r=restR+wrap(fallR-restR)*(1-land)+p.rz;
+        var rx=p.rx+(still?0:(1-land)*38*Math.sin(t*p.flipF+p.ph));      // gentle flutter while falling
+        var ry=p.ry+(still?0:(1-land)*22*Math.sin(t*p.flipF*.7+p.ph2));
+        p.el.style.transform="translate3d("+x.toFixed(1)+"px,"+(p.y+p.gy*gustK).toFixed(1)+"px,0) rotate("+r.toFixed(1)+"deg) perspective(320px) rotateX("+rx.toFixed(1)+"deg) rotateY("+ry.toFixed(1)+"deg)";
+      });
+      requestAnimationFrame(frame);
+    }
+    return {onView:function(name){
+      if(name==="home"){
+        if(!layer) build();
+        layer.hidden=false;
+        if(!running){ running=true; lastT=0; lastY=scrollY; if(!t0) t0=performance.now(); requestAnimationFrame(frame) }
+      } else if(layer){ layer.hidden=true; running=false }
+    }};
+  })();
+  Petals.onView(document.querySelector("#v-home.on")?"home":"other");
+
+
+  // Estate map: open larger on tap, close with the button, Esc or a tap outside
+  (function(){
+    var lb=document.getElementById("lightbox"), openBtn=document.querySelector(".map-open"), closeBtn=document.getElementById("lbClose"), last=null;
+    if(!lb||!openBtn) return;
+    function open(){ last=document.activeElement; lb.hidden=false; document.body.style.overflow="hidden"; closeBtn.focus() }
+    function close(){ lb.hidden=true; document.body.style.overflow=""; if(last&&last.focus) last.focus() }
+    openBtn.addEventListener("click",open);
+    closeBtn.addEventListener("click",close);
+    lb.addEventListener("click",function(e){ if(e.target===lb) close() });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&!lb.hidden) close() });
+  })();
 
   // Countdown to 4:00 pm Eastern, Aug 9 2027
   var target=new Date("2027-08-09T16:00:00-04:00").getTime();
