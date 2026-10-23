@@ -734,7 +734,6 @@ body:not(.show-slots) .slot-tag-inline{display:none}
             </label>
             <p class="err" id="formErr" role="alert"></p>
             <button class="btn" type="submit" id="f-submit">Send RSVP</button>
-            <p class="preview-note" id="previewNote">Draft preview. Replies sent from this page aren't saved yet. They will be once the site goes live.</p>
           </form>
           <div class="thanks" id="thanks" hidden>
             <div class="wreath"><p class="thanks-title">Thank<br>you</p></div>
@@ -943,7 +942,6 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   var form=document.getElementById("rsvpForm"), yes=document.getElementById("yesFields"), err=document.getElementById("formErr");
   var found=document.getElementById("found"), plusWrap=document.getElementById("plusWrap"), submitBtn=document.getElementById("f-submit");
   var guest=null, lookedUpFor="", nameEl=document.getElementById("f-name");
-  if (RSVP_ENDPOINT) document.getElementById("previewNote").hidden=true;
 
   function lookup(name){
     if(!RSVP_ENDPOINT) return Promise.resolve({ok:true,listInUse:false});
