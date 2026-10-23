@@ -395,7 +395,13 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 
 /* Opening still: the montage's own first frame, chosen by screen shape so nothing else flashes first */
 .hero .hero-still{background:url(img/hero-poster.jpg) 50% 18%/cover no-repeat}
-@media (max-aspect-ratio:2/3){.hero .hero-still{background-image:url(img/hero-poster-portrait.jpg)}.hero{min-height:min(177.78vw,90svh)}}
+@media (max-aspect-ratio:2/3){
+  .hero .hero-still{background-image:url(img/hero-poster-portrait.jpg)}
+  /* Phones: the full vertical video sits at the top and fades into a dark band that holds the text,
+     so the words sit below the faces instead of over them */
+  .hero{--vid-h:min(177.78vw,82svh);min-height:calc(var(--vid-h) + 230px);background:#1d170e}
+  .hero video,.hero .hero-still{bottom:auto;height:var(--vid-h);-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+}
 
 /* ---------- Pause control ---------- */
 .motion-toggle{position:absolute;z-index:3;top:calc(14px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));display:inline-flex;align-items:center;gap:.5rem;
@@ -423,6 +429,8 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   .float-rsvp{display:inline-flex;position:fixed;z-index:30;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
     background:var(--ink);color:var(--paper);font:500 .72rem/1 var(--body);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:.95rem 1.35rem;border-radius:999px;box-shadow:0 12px 26px -12px rgba(0,0,0,.55)}
   body.on-rsvp .float-rsvp{display:none}
+  .float-rsvp{transition:opacity .35s ease,transform .35s ease}
+  body.hero-in-view .float-rsvp{opacity:0;transform:translateY(10px);pointer-events:none}
 }
 </style>
 </head>
@@ -883,7 +891,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   var tl=document.querySelector(".timeline"), poster=document.querySelector(".hero .hero-still"), heroVid=document.getElementById("montage"), ticking=false;
   var still=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   function onScroll(){
-    ticking=false; if(still) return;
+    ticking=false;
+    // Floating RSVP waits until the reader has scrolled past the hero on the home page
+    var heroEl=document.querySelector("#v-home.on .hero");
+    document.body.classList.toggle("hero-in-view", !!heroEl && window.scrollY < heroEl.offsetHeight*0.75);
+    if(still) return;
     var y=window.scrollY;
     /* the hero video scrolls with the page: no parallax, so it never pulls away from the menu bar */
     if(tl&&tl.offsetParent){
