@@ -370,6 +370,15 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 .story-print{width:min(58%,340px)}
 .story-print img{aspect-ratio:3/4;object-position:40% 30%}
 @media (max-width:520px){.story-print{width:82%}}
+
+/* ---------- Hero montage: a warm wash and fine grain tie every clip to the palette ---------- */
+.hero-tint,.hero-grain{position:absolute;pointer-events:none}
+.hero-tint{inset:0;background:linear-gradient(160deg,#E5B23A 0%,#D99A7E 45%,#BE8072 72%,#7F8C6B 100%);mix-blend-mode:soft-light;opacity:.55}
+.hero-grain{inset:-40px;opacity:.13;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain .9s steps(5) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-14px,8px)}40%{transform:translate(10px,-12px)}60%{transform:translate(-8px,-6px)}80%{transform:translate(12px,10px)}100%{transform:translate(0,0)}}
+@media (prefers-reduced-motion:reduce){.hero-grain{animation:none}}
 </style>
 </head>
 <body>
@@ -396,9 +405,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
 <section class="view" id="v-home" data-view="home">
   <div class="hero">
     <img class="poster" onerror="this.remove()" src="img/hero.jpg" alt="A meadow of yellow and pink wildflowers in front of a stone farmhouse at sunset">
-    <!-- Montage: drop the video in as video/montage.mp4 and remove the hidden attribute -->
-    <video id="montage" autoplay muted loop playsinline poster="img/hero.jpg" hidden></video>
-    <span class="slot-tag">Video montage goes here</span>
+    <video id="montage" class="hero-video" autoplay muted loop playsinline preload="auto" poster="img/hero-poster.jpg" aria-hidden="true">
+      <source src="video/hero-landscape.mp4" type="video/mp4">
+    </video>
+    <span class="hero-tint" aria-hidden="true"></span>
+    <span class="hero-grain" aria-hidden="true"></span>
     <svg class="hero-edge" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 48V30C180 40 330 18 560 22S930 40 1150 20 1360 10 1440 14V48Z"/></svg>
     <div class="wrap">
       <p class="eyebrow">Together with their families</p>
@@ -806,12 +817,12 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   });
 
   // Hero parallax and timeline line progress
-  var tl=document.querySelector(".timeline"), poster=document.querySelector(".hero .poster"), ticking=false;
+  var tl=document.querySelector(".timeline"), poster=document.querySelector(".hero .poster"), heroVid=document.getElementById("montage"), ticking=false;
   var still=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   function onScroll(){
     ticking=false; if(still) return;
     var y=window.scrollY;
-    if(poster&&poster.isConnected&&y<900) poster.style.translate="0 "+(y*0.22)+"px";
+    if(y<900){ var ty="0 "+(y*0.22)+"px"; if(poster&&poster.isConnected) poster.style.translate=ty; if(heroVid) heroVid.style.translate=ty }
     if(tl&&tl.offsetParent){
       var r=tl.getBoundingClientRect(), vh=innerHeight;
       var p=Math.min(1,Math.max(0,(vh*0.75-r.top)/r.height));
@@ -924,6 +935,13 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     closeBtn.addEventListener("click",close);
     lb.addEventListener("click",function(e){ if(e.target===lb) close() });
     document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&!lb.hidden) close() });
+  })();
+
+
+  // Hero montage: respect reduced motion by holding on the first frame
+  (function(){ var v=document.getElementById("montage"); if(!v) return;
+    if(still){ v.removeAttribute("autoplay"); try{ v.pause() }catch(e){} }
+    else { var p=v.play&&v.play(); if(p&&p.catch) p.catch(function(){}) }
   })();
 
   // Countdown to 4:00 pm Eastern, Aug 9 2027
