@@ -432,6 +432,19 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   .float-rsvp{transition:opacity .35s ease,transform .35s ease}
   body.hero-in-view .float-rsvp{opacity:0;transform:translateY(10px);pointer-events:none}
 }
+
+/* ---------- Save the date and contacts ---------- */
+.cal-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;margin-top:1.4rem}
+.head .cal-row{margin-top:.2rem}
+.cal-label{font:500 .68rem var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-right:.2rem}
+.cal-btn{display:inline-flex;align-items:center;font:500 .7rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:.6rem .95rem;transition:border-color .25s,background .25s}
+.cal-btn:hover{border-color:var(--gold);background:color-mix(in srgb,var(--peony) 30%,transparent)}
+.contacts{list-style:none;margin:.9rem 0 0;padding:0;display:grid;gap:.9rem}
+.contacts li{display:grid;gap:.15rem}
+.contacts strong{font:400 1.05rem var(--display);color:var(--ink)}
+.c-line{display:flex;flex-wrap:wrap;gap:.2rem 1.1rem}
+.c-line a{color:var(--gold);text-decoration:none;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.c-line a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -501,6 +514,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
           <div><dt>Dress</dt><dd>Summer formal<small>Comfortable shoes help. You'll walk between buildings on garden paths.</small></dd></div>
           <div><dt>Reply by</dt><dd>December 1, 2026<small>Early, so everyone travelling from abroad has time to plan.</small></dd></div>
         </dl>
+          <div class="cal-row" aria-label="Add the wedding to your calendar">
+            <span class="cal-label">Save the date</span>
+            <a class="cal-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mary%20Lisa%20%26%20Edison%27s%20Wedding&amp;dates=20270809T160000/20270810T010000&amp;ctz=America/Toronto&amp;location=Stonefields%20Estate%2C%201985%209th%20Line%2C%20Beckwith%2C%20ON%20K7C%203P2&amp;details=Ceremony%20at%204%3A00%20pm%20in%20the%20Ceremony%20House.%20Please%20arrive%20a%20little%20early.%20Dinner%20and%20dancing%20in%20the%20Loft%20until%201%3A00%20am.%0A%0ADetails%20and%20RSVP%3A%20https%3A//edisontsandoval.github.io/Wedding/" target="_blank" rel="noopener">Google Calendar</a>
+            <a class="cal-btn" href="wedding.ics">Apple &amp; Outlook</a>
+          </div>
       </div>
     </div>
   </div>
@@ -612,6 +630,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
       <div class="head">
         <p class="eyebrow">The Day</p>
         <h2>Monday, August 9</h2>
+        <div class="cal-row" aria-label="Add the wedding to your calendar">
+            <span class="cal-label">Save the date</span>
+            <a class="cal-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mary%20Lisa%20%26%20Edison%27s%20Wedding&amp;dates=20270809T160000/20270810T010000&amp;ctz=America/Toronto&amp;location=Stonefields%20Estate%2C%201985%209th%20Line%2C%20Beckwith%2C%20ON%20K7C%203P2&amp;details=Ceremony%20at%204%3A00%20pm%20in%20the%20Ceremony%20House.%20Please%20arrive%20a%20little%20early.%20Dinner%20and%20dancing%20in%20the%20Loft%20until%201%3A00%20am.%0A%0ADetails%20and%20RSVP%3A%20https%3A//edisontsandoval.github.io/Wedding/" target="_blank" rel="noopener">Google Calendar</a>
+            <a class="cal-btn" href="wedding.ics">Apple &amp; Outlook</a>
+          </div>
       </div>
       <ol class="sched">
         <li><time>3:30 pm</time><div><h3>Guests arrive</h3><p>Make your way to the Ceremony House and find a seat.</p></div></li>
@@ -694,7 +717,6 @@ body:not(.show-slots) .slot-tag-inline{display:none}
           <p class="visit" aria-hidden="true">Visit website <span>↗</span></p>
         </article>
       </div>
-      <p class="note">We're asking about a group rate. If we get one, the booking code will go here.</p>
 
       <div class="split" style="margin-top:3rem">
         <div class="prose">
@@ -747,7 +769,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
         <details><summary>What if it rains?</summary><p>The ceremony is indoors in the Ceremony House and dinner is in the Loft, so the weather won't change our plans.</p></details>
         <details><summary>Is there parking?</summary><p>Yes. There's a guest lot on the property, marked 9 on the estate map at the bottom of The Day page.</p></details>
         <details><summary>Do you have a registry?</summary><p>Having you there is plenty. If you'd still like to give something, details will be here soon.</p></details>
-        <details><summary>Who do I ask if something comes up?</summary><p>Text Edison or Mary Lisa directly. Contact details will be added here.</p></details>
+        <details><summary>Who do I ask if something comes up?</summary><p>Text, call or email either of us. We're happy to help.</p>
+          <ul class="contacts">
+            <li><strong>Edison Sandoval</strong><span class="c-line" data-u="edison.t.sandoval" data-d="gmail.com" data-t="6134046838"></span></li>
+            <li><strong>Mary Lisa Nefedova</strong><span class="c-line" data-u="mashuletka" data-d="gmail.com" data-t="6135013574"></span></li>
+          </ul></details>
       </div>
     </div>
   </div>
@@ -1044,6 +1070,15 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     btn.addEventListener("click",function(){ off=!off; try{ localStorage.setItem("motionOff",off?"1":"0") }catch(_){} apply() });
     apply();
   })();
+
+
+  // Contact details: built here rather than written in the page, which keeps most spam bots from collecting them
+  document.querySelectorAll(".c-line").forEach(function(el){
+    var mail=el.dataset.u+"@"+el.dataset.d, t=el.dataset.t, nice="("+t.slice(0,3)+") "+t.slice(3,6)+"-"+t.slice(6);
+    var a=document.createElement("a"); a.href="mailto:"+mail; a.textContent=mail;
+    var b=document.createElement("a"); b.href="tel:+1"+t; b.textContent=nice;
+    el.appendChild(a); el.appendChild(b);
+  });
 
   // Countdown to 4:00 pm Eastern, Aug 9 2027
   var target=new Date("2027-08-09T16:00:00-04:00").getTime();

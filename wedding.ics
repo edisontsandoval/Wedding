@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Mary Lisa & Edison//Wedding//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:marylisa-edison-wedding-20270809@edisontsandoval.github.io
+DTSTAMP:20261024T013000Z
+DTSTART:20270809T200000Z
+DTEND:20270810T050000Z
+SUMMARY:Mary Lisa & Edison's Wedding
+LOCATION:Stonefields Estate\, 1985 9th Line\, Beckwith\, ON K7C 3P2
+DESCRIPTION:Ceremony at 4:00 pm in the Ceremony House. Please arrive a litt
+ le early. Dinner and dancing in the Loft until 1:00 am.\n\nDetails and RSV
+ P: https://edisontsandoval.github.io/Wedding/
+URL:https://edisontsandoval.github.io/Wedding/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Mary Lisa & Edison's wedding is in one week
+END:VALARM
+END:VEVENT
+END:VCALENDAR
