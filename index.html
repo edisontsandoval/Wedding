@@ -306,7 +306,13 @@ footer p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 .stay h3{transition:color .3s}
 @media (hover:hover){.stay:hover .visit span{transform:translate(3px,-3px)}.stay:hover h3{color:var(--rose)}}
 
-.found{font:400 .95rem/1.4 var(--body);color:var(--sage);margin-top:-.6rem}
+.found{font:400 .95rem/1.4 var(--body);color:var(--sage)}
+.found-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .9rem;margin-top:-.6rem}
+.found-row:not(:has(:not([hidden]))){display:none}
+.not-you{font:400 .85rem var(--body);color:var(--muted);background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.not-you:hover{color:var(--gold)}
+.prior{font:300 .92rem/1.5 var(--body);color:var(--ink);background:color-mix(in srgb,var(--peony) 30%,transparent);border-left:2px solid var(--gold);padding:.7rem .9rem;margin-top:-.4rem}
+input[readonly]{color:var(--ink);border-bottom-style:dotted;cursor:default}
 .trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .btn[disabled]{opacity:.6;cursor:wait}
 
@@ -514,7 +520,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   <div class="band">
     <div class="wrap intro">
       <div class="prose">
-        <p class="eyebrow">You're invited</p>
+        <p class="eyebrow" id="invitedLine">You're invited</p>
         <h2 style="font-size:clamp(2rem,4.6vw,3.2rem)">We'd love for you to be there</h2>
         <p>Five years after a first game of mini-putt, and more grocery runs together than we can count, we're getting married.</p>
         <p>We're keeping it close: about 75 of the people who have cheered us on, fed us, and put up with our karaoke. If you're reading this, you're one of them.</p>
@@ -818,10 +824,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
         <div class="rsvp">
           <form id="rsvpForm" novalidate>
             <label for="f-name">Your full name
-              <span class="hint">First and last name, the way we know you.</span>
+              <span class="hint" id="nameHint">First and last name, the way we know you.</span>
               <input type="text" id="f-name" name="name" autocomplete="name" required>
             </label>
-            <p class="found" id="found" role="status" hidden></p>
+            <div class="found-row"><p class="found" id="found" role="status" hidden></p><button type="button" class="not-you" id="notYou" hidden>Not you?</button></div>
+            <p class="prior" id="prior" hidden></p>
             <label for="f-email">Email
               <span class="hint">We'll email you updates, including the dinner menu in the spring.</span>
               <input type="email" id="f-email" name="email" autocomplete="email" required>
@@ -860,7 +867,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
             <div class="wreath"><p class="thanks-title">Thank<br>you</p></div>
             <h3 id="thanksHead" style="font-size:1.6rem"></h3>
             <p id="thanksBody" style="color:var(--muted);max-width:44ch"></p>
-            <p class="change-note">Plans change. To update your reply later, send this form again using the same name and we'll replace your old answer.</p>
+            <p class="change-note" id="changeNote">Plans change. To update your reply later, send this form again using the same name and we'll replace your old answer.</p>
             <button class="btn ghost" type="button" id="again">Edit my reply</button>
           </div>
         </div>
@@ -1146,7 +1153,61 @@ body:not(.show-slots) .slot-tag-inline{display:none}
   var RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyNRk86KpSZBMPqmynuhjzm3LzeuDcMXOl8ETMXVbRiJ_OdSpdTdsW3R5RnKjDzNZNn/exec';
   var form=document.getElementById("rsvpForm"), yes=document.getElementById("yesFields"), err=document.getElementById("formErr");
   var found=document.getElementById("found"), plusWrap=document.getElementById("plusWrap"), submitBtn=document.getElementById("f-submit");
+  var notYou=document.getElementById("notYou"), prior=document.getElementById("prior"), nameHint=document.getElementById("nameHint");
+  var invitedLine=document.getElementById("invitedLine"), changeNote=document.getElementById("changeNote");
   var guest=null, lookedUpFor="", nameEl=document.getElementById("f-name");
+  var NAME_HINT=nameHint.textContent, CHANGE_NOTE=changeNote.textContent;
+
+  // Personal links: ?k=CODE. The code is kept on this device so the guest stays recognised,
+  // and taken out of the address bar so it isn't shared by accident.
+  var KEY_RE=/^[A-Za-z0-9]{6,12}$/, key="", linkGuest=null;
+  function store(v){ try{ v?localStorage.setItem("rsvpKey",v):localStorage.removeItem("rsvpKey") }catch(_){} }
+  try{
+    var qs=new URLSearchParams(location.search), qk=(qs.get("k")||"").trim();
+    if(qs.has("k")){ qs.delete("k"); var rest=qs.toString(); history.replaceState(history.state,"",location.pathname+(rest?"?"+rest:"")+location.hash) }
+    if(KEY_RE.test(qk)){ key=qk.toUpperCase(); store(key) }
+    else { var saved=localStorage.getItem("rsvpKey")||""; if(KEY_RE.test(saved)) key=saved }
+  }catch(_){}
+
+  function first(n){ return String(n||"").split(/\s+/)[0] }
+  function setYes(on){ yes.hidden=!on }
+  function useLink(g){
+    linkGuest=g; guest=g; lookedUpFor=g.name;
+    nameEl.value=g.name; nameEl.readOnly=true;
+    nameHint.textContent="This link is just for you.";
+    found.textContent="Welcome, "+first(g.name)+"."; found.hidden=false; notYou.hidden=false;
+    plusWrap.hidden=!g.plusOne; if(!g.plusOne) form.plusone.value="";
+    invitedLine.textContent="You're invited, "+first(g.name);
+    changeNote.textContent="Plans change. Open your personal link again any time to update your reply.";
+    var r=g.reply;
+    if(r){
+      if(r.email) form.email.value=r.email;
+      if(r.attending){ var radio=document.getElementById(r.attending==="yes"?"f-yes":"f-no"); radio.checked=true; setYes(r.attending==="yes") }
+      if(r.plusone && g.plusOne) form.plusone.value=r.plusone;
+      if(r.dietary) form.dietary.value=r.dietary;
+      if(r.song) form.song.value=r.song;
+      if(r.message) form.message.value=r.message;
+      var when=new Date(r.received), day=isNaN(when)?"":" on "+when.toLocaleDateString("en-CA",{month:"long",day:"numeric"});
+      prior.textContent="We have your reply"+day+": "+(r.attending==="yes"?"you're coming":"you can't make it")+". Change anything below and send it again.";
+      prior.hidden=false;
+    }
+  }
+  function dropLink(){
+    key=""; linkGuest=null; guest=null; lookedUpFor=""; store("");
+    nameEl.readOnly=false; nameEl.value=""; nameHint.textContent=NAME_HINT;
+    found.hidden=true; notYou.hidden=true; prior.hidden=true; plusWrap.hidden=false;
+    invitedLine.textContent="You're invited"; changeNote.textContent=CHANGE_NOTE;
+  }
+  notYou.addEventListener("click",function(){ dropLink(); form.reset(); setYes(false); err.textContent=""; nameEl.focus() });
+
+  if(key && RSVP_ENDPOINT){
+    fetch(RSVP_ENDPOINT+"?action=lookup&k="+encodeURIComponent(key))
+      .then(function(r){return r.json()})
+      .then(function(g){
+        if(g && g.ok && g.found) useLink(g);
+        else if(g && g.ok){ dropLink(); err.textContent="That personal link didn't work. Please type your name below, or text us." }
+      }).catch(function(){});
+  }
 
   function lookup(name){
     if(!RSVP_ENDPOINT) return Promise.resolve({ok:true,listInUse:false});
@@ -1156,10 +1217,11 @@ body:not(.show-slots) .slot-tag-inline{display:none}
       .then(function(g){ lookedUpFor=name; guest=g; return g });
   }
   function applyGuest(g){
+    if(linkGuest) return;
     found.hidden=true; plusWrap.hidden=false;
     if(!g||!g.ok) return;
     if(g.listInUse && g.found){
-      found.textContent="Found you on our guest list. Welcome, "+g.name.split(/\s+/)[0]+".";
+      found.textContent="Found you on our guest list. Welcome, "+first(g.name)+".";
       found.hidden=false;
       plusWrap.hidden=!g.plusOne;
       if(!g.plusOne) form.plusone.value="";
@@ -1171,12 +1233,13 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     return "";
   }
   nameEl.addEventListener("blur",function(){
+    if(linkGuest) return;
     var name=nameEl.value.trim(); if(!RSVP_ENDPOINT||name.split(/\s+/).length<2) return;
     lookup(name).then(function(g){ applyGuest(g); err.textContent=lookupMessage(g) }).catch(function(){});
   });
-  nameEl.addEventListener("input",function(){ guest=null; found.hidden=true });
+  nameEl.addEventListener("input",function(){ if(linkGuest) return; guest=null; found.hidden=true });
 
-  form.addEventListener("change",function(e){if(e.target.name==="attending") yes.hidden=e.target.value!=="yes"});
+  form.addEventListener("change",function(e){if(e.target.name==="attending") setYes(e.target.value==="yes")});
   form.addEventListener("submit",function(e){
     e.preventDefault(); err.textContent="";
     var name=nameEl.value.trim(), email=form.email.value.trim(), att=(form.querySelector('input[name=attending]:checked')||{}).value;
@@ -1184,24 +1247,31 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent="That email doesn't look right. Please check it.";form.email.focus();return}
     if(!att){err.textContent="Please let us know if you can come.";return}
     var data={name:name,email:email,attending:att,plusone:form.plusone.value,dietary:form.dietary.value,song:form.song.value,message:form.message.value,website:form.website.value};
+    if(linkGuest) data.k=key;
 
     function done(){
-      var first=name.split(/\s+/)[0];
-      document.getElementById("thanksHead").textContent=att==="yes"?"We can't wait to see you, "+first+".":"We'll miss you, "+first+".";
+      var f=first(name);
+      document.getElementById("thanksHead").textContent=att==="yes"?"We can't wait to see you, "+f+".":"We'll miss you, "+f+".";
       document.getElementById("thanksBody").textContent=att==="yes"?"Your reply is in. We'll email "+email+" in the spring with the dinner menu and final details.":"Thanks for letting us know. We'll raise a glass to you on the ninth.";
+      prior.hidden=true;
       form.hidden=true; document.getElementById("thanks").hidden=false;
     }
     if(!RSVP_ENDPOINT){ done(); return }
 
+    var errors={
+      not_found: lookupMessage({ok:true,listInUse:true,found:false}),
+      use_link: "You already replied using your personal link. To change your answer, open that link again, or text us.",
+      bad_link: "Your personal link isn't working. Tap “Not you?” and type your name instead, or text us."
+    };
     submitBtn.disabled=true; submitBtn.textContent="Sending…";
-    lookup(name).then(function(g){
-      var msg=lookupMessage(g); if(msg){ applyGuest(g); throw {shown:msg} }
-      applyGuest(g);
+    (linkGuest ? Promise.resolve(null) : lookup(name).then(function(g){
+      var msg=lookupMessage(g); applyGuest(g); if(msg) throw {shown:msg};
+    })).then(function(){
       if(plusWrap.hidden) data.plusone="";
       return fetch(RSVP_ENDPOINT,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
     }).then(function(r){return r.json()}).then(function(res){
       if(res.ok){ done(); return }
-      throw {shown: res.error==="not_found" ? lookupMessage({ok:true,listInUse:true,found:false}) : "Something went wrong saving your reply. Please try again in a minute."};
+      throw {shown: errors[res.error] || "Something went wrong saving your reply. Please try again in a minute."};
     }).catch(function(x){
       err.textContent=(x&&x.shown)||"We couldn't send your reply. Check your connection and try again, or text us.";
     }).then(function(){ submitBtn.disabled=false; submitBtn.textContent="Send RSVP" });
