@@ -3,7 +3,8 @@
  *
  * Saves every RSVP from the wedding website into this Google Sheet.
  *   - "Guest List" tab: one row per guest. If it has names in it, only those
- *     guests can RSVP, and only people marked "Yes" see the plus-one field.
+ *     guests can RSVP. Column B is Yes/No for a plus-one, or the plus-one's
+ *     name, which is then pre-filled on that guest's personal link.
  *     If you leave it empty, anyone with the link can RSVP.
  *   - "RSVPs" tab: one row per guest. If someone replies again, their row is
  *     updated instead of added twice.
@@ -22,7 +23,7 @@
 const SITE_URL = 'https://edisontsandoval.github.io/Wedding/';
 const GUEST_TAB = 'Guest List';
 const RSVP_TAB = 'RSVPs';
-const GUEST_HEADERS = ['Guest name', 'Plus-one allowed (Yes/No)', 'Notes', 'Code', 'Personal link'];
+const GUEST_HEADERS = ['Guest name', 'Plus-one (Yes/No or their name)', 'Notes', 'Code', 'Personal link'];
 const RSVP_HEADERS = ['Received', 'Name', 'Invitation', 'Email', 'Attending',
   'Plus-one name', 'Dietary needs', 'Song request', 'Note to us', 'Sent from'];
 const CODE_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; // no 0/O, 1/I/L
@@ -110,9 +111,16 @@ function guestRows_() {
   return sh.getRange(2, 1, sh.getLastRow() - 1, 4).getValues();
 }
 
+/**
+ * Column B can say Yes or No, or hold the plus-one's name.
+ * Blank, No, N, N/A, None or - means no plus-one. Anything else means yes,
+ * and a name is pre-filled on that guest's personal link.
+ */
 function toGuest_(row) {
-  return { listInUse: true, found: true, name: String(row[0]).trim(),
-           plusOne: /^y/i.test(String(row[1]).trim()) };
+  const v = String(row[1] || '').trim();
+  const plusOne = v !== '' && !/^(no?|n\/a|none|-)$/i.test(v);
+  return { listInUse: true, found: true, name: String(row[0]).trim(), plusOne: plusOne,
+           plusName: plusOne && !/^(y|yes)$/i.test(v) ? v : '' };
 }
 
 function findGuest_(name) {
@@ -170,7 +178,7 @@ function doGet(e) {
       email: r[3], attending: r[4] === 'Yes' ? 'yes' : r[4] === 'No' ? 'no' : '',
       plusone: r[5], dietary: r[6], song: r[7], message: r[8] } : null;
     return json_({ ok: true, listInUse: true, found: true, byLink: true,
-                   name: g.name, plusOne: g.plusOne, reply: reply });
+                   name: g.name, plusOne: g.plusOne, plusName: g.plusName, reply: reply });
   }
 
   if (norm_(p.name).split(' ').length < 2) return json_({ ok: false, error: 'full_name' });

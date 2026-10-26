@@ -24,13 +24,13 @@ Wedding details and RSVP site for August 9, 2027 at Stonefields Estate, Carleton
 ### The Guest List tab
 
 - Column A: each guest's full name, the way you know them.
-- Column B: `Yes` if they may bring a plus-one, `No` if not.
+- Column B: `Yes` if they may bring a plus-one, `No` (or blank) if not, or the plus-one's name if you already know it.
 - If this tab has names in it, only those guests can RSVP. If it's empty, anyone with the link can.
 - Names are only checked by the script. They never appear in the website's code.
 
 ### Personal RSVP links
 
-1. Add your guests to the **Guest List** tab (name in column A, `Yes` or `No` for a plus-one in column B).
+1. Add your guests to the **Guest List** tab: name in column A, and in column B either `Yes`/`No` for a plus-one or the plus-one's name (it's then filled in on that guest's form).
 2. Reload the sheet. A **Wedding RSVPs** menu appears at the top. Choose **Make personal links**.
 3. Each guest gets a private code in column D and their own link in column E. Copy a guest's link into your email or message to them.
 4. Added more guests later? Run **Make personal links** again. Existing links never change.

@@ -1177,6 +1177,7 @@ body:not(.show-slots) .slot-tag-inline{display:none}
     nameHint.textContent="This link is just for you.";
     found.textContent="Welcome, "+first(g.name)+"."; found.hidden=false; notYou.hidden=false;
     plusWrap.hidden=!g.plusOne; if(!g.plusOne) form.plusone.value="";
+    if(g.plusOne && g.plusName && !form.plusone.value) form.plusone.value=g.plusName;
     invitedLine.textContent="You're invited, "+first(g.name);
     changeNote.textContent="Plans change. Open your personal link again any time to update your reply.";
     var r=g.reply;
